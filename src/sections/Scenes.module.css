@@ -33,7 +33,7 @@
   line-height: 0.82;
   letter-spacing: -0.10em;
 
-  opacity: 0.010; /* ✅ 背景に溶かす */
+  opacity: 0.010;
   color: transparent;
 
   background-image: linear-gradient(
@@ -90,7 +90,6 @@
 }
 
 /* ===== veil / flare / atmosphere ===== */
-/* ここは Sankou の veilFrom/To で動く前提。初期値を合わせて“ジャンプ防止” */
 .imageVeil{
   position: absolute;
   inset: 0;
@@ -99,7 +98,6 @@
 
   opacity: 0.82;
 
-  /* ✅ 霧っぽさを“白”で出さず、黒で締める */
   background:
     radial-gradient(1200px 720px at 58% 32%,
       rgba(255,238,188,0.10),
@@ -125,7 +123,6 @@
 
   opacity: 0; /* gsap */
 
-  /* ✅ 上品な一発だけ */
   background:
     radial-gradient(620px 320px at 62% 38%,
       rgba(255,238,188,0.22),
@@ -136,7 +133,7 @@
   filter: blur(0.2px);
 }
 
-/* 空気：薄い粒子 + 下の黒帯（エンドの余韻） */
+/* 空気：薄い粒子 + 下の黒帯 */
 .atmosphere{
   position: absolute;
   inset: 0;
@@ -163,7 +160,7 @@
   mix-blend-mode: soft-light;
 }
 
-/* ===== top bar（番号/キッカー） ===== */
+/* ===== top bar ===== */
 .topBar{
   position: absolute;
   left: 0;
@@ -213,7 +210,7 @@
   background: linear-gradient(90deg, rgba(243,239,230,0.18), rgba(243,239,230,0.04));
 }
 
-/* ===== copy block（タイトル/本文） ===== */
+/* ===== copy block ===== */
 .copyBlock{
   position: absolute;
   left: clamp(18px, 4vw, 72px);
@@ -270,7 +267,7 @@
   opacity: 0; /* gsap */
 }
 
-/* ===== bottom row（meta + label） ===== */
+/* ===== bottom row ===== */
 .bottomRow{
   position: absolute;
   left: 0;
@@ -353,17 +350,24 @@
 }
 
 @media (max-width: 640px){
+  /* ✅ SP：下の密度が詰まりやすいので、全体の余白を取り直す */
   .stage{ min-height: 104svh; }
 
   .topBar{
     padding: 0 18px;
+    gap: 14px;
+  }
+
+  .kickerRow{
+    min-width: 0;
+    flex: 1;
   }
 
   .copyBlock{
     left: 18px;
     right: 18px;
     width: auto;
-    bottom: calc(118px + env(safe-area-inset-bottom));
+    bottom: calc(132px + env(safe-area-inset-bottom)); /* 少し上げて下段と干渉回避 */
   }
 
   .titleSub{ font-size: 16px; }
@@ -375,6 +379,7 @@
   .lead{
     font-size: 13.5px;
     line-height: 2.0;
+    letter-spacing: 0.02em;
   }
 
   .bottomRow{
@@ -387,6 +392,22 @@
   .meta{
     flex-wrap: wrap;
     gap: 10px;
+  }
+
+  .metaItem{
+    padding: 9px 10px;
+    gap: 8px;
+  }
+
+  .metaText{
+    font-size: 11px;
+    letter-spacing: 0.10em;
+  }
+
+  .imageLabel{
+    font-size: 9px;
+    letter-spacing: 0.20em;
+    color: rgba(243,239,230,0.42);
   }
 }
 
@@ -401,4 +422,36 @@
     transform: none;
     filter: none;
   }
+}
+/* Scenes.module.css */
+.stage picture{ display:block; }
+
+@media (max-width: 640px){
+  .heroImage{ object-position: 50% 50%; }
+}
+/* =========================
+   SCENES PC readability boost
+   ========================= */
+@media (min-width: 960px){
+  .lead{
+    font-size: 18px;
+    line-height: 2.05;
+    letter-spacing: 0.016em;
+  }
+
+  .metaText{ font-size: 13px; }
+  .imageLabel{ font-size: 11px; }
+
+  /* メタの“読み”も少し上げる（潰れ防止） */
+  .metaItem{
+    padding: 11px 14px;
+    gap: 10px;
+  }
+  .metaNo{ font-size: 11px; }
+}
+
+@media (min-width: 1280px){
+  .lead{ font-size: 18.5px; }
+  .metaText{ font-size: 13.5px; }
+  .imageLabel{ font-size: 11.5px; }
 }

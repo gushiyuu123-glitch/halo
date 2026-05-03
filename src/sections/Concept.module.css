@@ -187,14 +187,11 @@
   flex-direction: column;
   gap: clamp(10px, 1.2vw, 16px);
 
-  /* ✅ ここが本命：Zen Old Minchoへ統一（base側の変数を使う） */
   font-family: var(--ff-serif, "Zen Old Mincho", "Noto Serif JP", serif);
   font-weight: 500;
   color: rgba(243, 239, 230, 0.96);
 
   max-width: 520px;
-
-  /* ✅ opacity:0 は入れない（SankouSection側が初期化する） */
   transform: translate3d(0, 0, 0);
 
   /* ✅ PCは折らない */
@@ -206,7 +203,6 @@
   white-space: nowrap;
 }
 
-/* 保険：1080px以下は折り返してOK（DOM分離前の事故防止） */
 @media (max-width: 1080px){
   .title,
   .titleSub,
@@ -295,7 +291,6 @@
   z-index: 3;
   pointer-events: none;
 
-  /* ✅ 黒を少し薄くして“白い霧”感を抑える */
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.20), transparent 56%),
     linear-gradient(180deg, transparent 48%, rgba(0, 0, 0, 0.46));
@@ -333,7 +328,6 @@
   transform-origin: center;
   opacity: 0; /* gsap */
 
-  /* ✅ 少しだけ“売れる明るさ”へ */
   filter: brightness(0.76) contrast(1.08) saturate(0.90);
 
   will-change: transform, filter;
@@ -347,14 +341,12 @@
   z-index: 2;
   pointer-events: none;
 
-  /* ✅ 霧りやすい膜を軽くする */
   background:
     linear-gradient(115deg, rgba(0, 0, 0, 0.66), transparent 48%),
     radial-gradient(circle at 44% 42%, rgba(248, 222, 166, 0.16), transparent 38%),
     linear-gradient(180deg, transparent 44%, rgba(0, 0, 0, 0.50));
 }
 
-/* フレア（opacityだけ） */
 .imageFlare{
   position:absolute;
   inset:-6%;
@@ -424,7 +416,9 @@
 
   .title{ max-width: 620px; }
 
-  .titleMain{
+  /* ✅ ここが修正点：titleMainLineにも同じ調整を当てる */
+  .titleMain,
+  .titleMainLine{
     font-size: clamp(34px, 7.4vw, 64px);
     white-space: normal;
   }
@@ -461,10 +455,11 @@
   }
 
   .title{ max-width: 92vw; }
-
   .titleSub{ font-size: 18px; }
 
-  .titleMain{
+  /* ✅ ここも修正：titleMainLineにも当てる */
+  .titleMain,
+  .titleMainLine{
     font-size: clamp(30px, 9.6vw, 48px);
     line-height: 1.16;
     letter-spacing: -0.018em;
@@ -489,4 +484,27 @@
     transform: none;
     filter: none;
   }
+}
+/* =========================
+   CONCEPT PC readability boost
+   ========================= */
+@media (min-width: 960px){
+  /* 本文を“読む強さ”に戻す */
+  .lead{
+    font-size: 18px;
+    line-height: 2.05;
+    letter-spacing: 0.016em;
+  }
+
+  /* 見出し周りも少しだけ格を上げる */
+  .kicker{ font-size: 13px; }
+  .number{ font-size: 14px; }
+
+  /* テキスト側の器を少しだけ広げる（詰まり回避） */
+  .contentArea{ max-width: 620px; }
+}
+
+@media (min-width: 1280px){
+  .lead{ font-size: 18.5px; }
+  .contentArea{ max-width: 660px; }
 }

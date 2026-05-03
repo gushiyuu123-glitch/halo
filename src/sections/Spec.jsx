@@ -12,7 +12,7 @@ export default function Spec() {
 
       start: "top 80%",
 
-      // 右画像は“静かな証拠”。動かしすぎず、出方だけ整える
+      // 右画像は“証拠”。動かしすぎず、出方だけ整える
       imgY: 38,
       imgScale: 1.03,
       imgFromFilter: "brightness(0.52) contrast(1.10) saturate(0.82)",
@@ -68,44 +68,31 @@ export default function Spec() {
           <div className={styles.body}>
             <h2 className={styles.title} data-sankou="title">
               <span className={styles.titleSub} data-sankou="titleSub">
-                精度と静けさ。
+                精度と品。
               </span>
               <span className={styles.titleMainLine} data-sankou="titleLine">
-                夜に馴染む設計。
+                夜に寄り添う設計。
               </span>
             </h2>
 
+            {/* ✅ 文章：短く、結果で言い切る（静か/整う なし） */}
             <div className={styles.copy} data-sankou="copy">
               <p>
-                HALOが目指したのは、性能を誇ることではなく、
+                HALOが優先したのは、数値のアピールではありません。
                 <br />
-                夜の空気を壊さないこと。
-                <br />
-                映像が点いた瞬間だけでなく、その前後の時間まで含めて、
-                <br />
-                部屋が整っていくように設計しています。
+                眩しさを抑えて、輪郭を出す。暗さの中で映像を締める。
               </p>
 
               <p>
-                明るさは、眩しさで支配しない。
+                音は主張しない。操作は迷わせない。
                 <br />
-                音は、存在感で押し出さない。
-                <br />
-                そして操作は、考えさせない。
-                <br />
-                集中や会話、沈黙のテンポに割り込まず、
-                <br />
-                スクリーンだけが自然に立ち上がる感覚を優先しました。
+                触れば分かる動線で、画面に集中できる状態をつくります。
               </p>
 
               <p>
-                使わない時間も、部屋の景色を崩さない。
+                使わない時間も、置いたまま成立する。
                 <br />
-                置きっぱなしで成立する佇まいと、
-                <br />
-                夜に馴染む光の扱いまで含めて、
-                <br />
-                HALOは“道具”としての品を残します。
+                素材と形まで含めて、部屋の印象を邪魔しません。
               </p>
             </div>
 

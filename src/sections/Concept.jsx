@@ -47,12 +47,13 @@ export default function Concept() {
             <span className={styles.titleMainLine}>夜の奥行きを映す。</span>
           </h2>
 
+          {/* ✅ コピー研磨（“静か/整う”封印。結果で言い切る） */}
           <p className={styles.lead} data-sankou="copy">
-            HALOは、映像だけを大きくするための道具ではありません。
+            HALOは、映像を大きくするだけのプロジェクターではありません。
             <br />
-            部屋の明るさ、壁の質感、時間の流れまで含めて、
+            壁の色、照明、距離。条件まで含めて、映像の締まりを出します。
             <br />
-            いつもの夜を少しだけ特別なものへ変えていきます。
+            いつもの夜が、スクリーンになる。
           </p>
         </div>
 
@@ -60,15 +61,23 @@ export default function Concept() {
           <img
             data-sankou="image"
             src="/images/halo-room.jpeg"
-            alt="夜の部屋に置かれたHALOプロジェクター"
+            alt="夜の部屋に置かれたHALOのプロジェクター"
             className={styles.heroImage}
             decoding="async"
             loading="lazy"
             draggable="false"
           />
 
-          <div className={styles.imageVeil} data-sankou="veil" aria-hidden="true" />
-          <div className={styles.imageFlare} data-sankou="flare" aria-hidden="true" />
+          <div
+            className={styles.imageVeil}
+            data-sankou="veil"
+            aria-hidden="true"
+          />
+          <div
+            className={styles.imageFlare}
+            data-sankou="flare"
+            aria-hidden="true"
+          />
         </div>
       </div>
 

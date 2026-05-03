@@ -714,15 +714,47 @@
   .jp{ font-size: 9px; }
 }
 
+/* ✅ ここが差分の本丸：SPで「番号だけ」になるのを防ぐ */
 @media (max-width: 980px){
   .items{
-    gap: 2px;
+    gap: 8px;
     overflow-x: auto;
     justify-content: flex-start;
     scrollbar-width: none;
+
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding: 0 2px;
   }
 
   .items::-webkit-scrollbar{ display: none; }
+
+  /* ✅ 本丸：縮ませない */
+  .item{
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    padding: 9px 10px;
+  }
+
+  /* ✅ テキストが0幅に潰れるのを防ぐ */
+  .texts{
+    min-width: 86px;
+  }
+
+  /* ✅ SPは情報を整理：基本EN、現在地だけJPも出す */
+  .jp{ display: none; }
+  .itemActive .jp{ display: block; }
+
+  /* ✅ noの浮きはSPで弱める */
+  .no{
+    transform: translateY(0);
+    font-size: 10px;
+  }
+
+  .en{
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
 
   .inner{
     display: flex;

@@ -97,6 +97,13 @@ export default function Hero() {
 
         <p className={styles.copy}>いつもの夜が、スクリーンになる。</p>
         <p className={styles.subCopy}>灯りを落とすだけで、始まる。</p>
+
+        {/* ✅ 追加：何を売ってるか（でも世界観は壊さない） */}
+<p className={styles.microCopy}>
+  HALO は、部屋の空気ごと映す{" "}
+  <br className={styles.spBreak} />
+  “ホームプロジェクター”。
+</p>
       </div>
 
       {/* Hero終端検知用 sentinel */}

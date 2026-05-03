@@ -12,7 +12,6 @@
   overflow: hidden;
   isolation: isolate;
 
-  /* ✅ baseに合わせる（暗いけど売れる） */
   color: rgba(243,239,230,0.98);
 
   background:
@@ -31,7 +30,6 @@
   z-index:-2;
   pointer-events:none;
 
-  /* ✅ 黒膜をちょい薄くして“白い霧”を抑える */
   background:
     linear-gradient(90deg, rgba(0,0,0,0.38), transparent 42%, rgba(0,0,0,0.24)),
     linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.76));
@@ -114,7 +112,6 @@
   pointer-events:none;
   opacity: 0; /* gsap */
 
-  /* ✅ “映写室の黒” だけ残す（白い霧を出さない） */
   background:
     radial-gradient(900px 520px at 52% 28%, rgba(248,222,166,0.090), transparent 58%),
     linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.30) 42%, rgba(0,0,0,0.72) 100%),
@@ -196,7 +193,6 @@
   flex-direction: column;
   gap: clamp(10px, 1.2vw, 16px);
 
-  /* ✅ Zen Old Mincho */
   font-family: var(--ff-serif, "Zen Old Mincho", "Noto Serif JP", serif);
   font-weight: 500;
   color: rgba(243,239,230,0.96);
@@ -234,7 +230,7 @@
   color: rgba(243,239,230,0.80);
   font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
   font-size: clamp(14.5px, 1.02vw, 17px);
-  line-height: 2.02;
+  line-height: 2.00;
   letter-spacing: 0.018em;
   text-shadow: 0 2px 10px rgba(0,0,0,0.30);
 
@@ -243,15 +239,15 @@
 }
 
 .copy p{ margin: 0; }
-.copy p + p{ margin-top: clamp(18px, 2.2vw, 28px); }
+.copy p + p{ margin-top: clamp(16px, 2.0vw, 24px); }
 
-/* 少しラフ（やりすぎない） */
-.copy p:nth-child(1){ max-width: 39em; }
-.copy p:nth-child(2){ margin-left: 12px; }
-.copy p:nth-child(3){ margin-left: -8px; }
+/* ✅ PCの“クセ”は控えめ（SPで読みやすさ優先） */
+.copy p:nth-child(1){ max-width: 40em; }
+.copy p:nth-child(2){ max-width: 40em; }
+.copy p:nth-child(3){ max-width: 40em; }
 
 .note{
-  margin-top: clamp(20px, 2.6vw, 34px);
+  margin-top: clamp(18px, 2.2vw, 30px);
   color: rgba(243,239,230,0.56);
   font-size: 12px;
   letter-spacing: 0.12em;
@@ -261,14 +257,13 @@
   opacity: 0; /* gsap */
 }
 
-/* ===== Right evidence image：右へフルワイド感 ===== */
+/* ===== Right evidence image ===== */
 .imageCol{
   position: relative;
   display:flex;
   justify-content:flex-end;
   align-items:flex-start;
 
-  /* ✅ 右にはみ出す：迫力 */
   margin-right: clamp(-72px, -7vw, -180px);
   margin-top: 0;
 
@@ -278,14 +273,12 @@
 .imageFrame{
   position: relative;
 
-  /* ✅ “整いすぎ”回避：幅を少し大きく */
   width: min(100%, 660px);
   min-height: clamp(700px, 76vw, 1080px);
 
   margin: 0;
   overflow: hidden;
 
-  /* ✅ 角はほんの僅かに（置き写真っぽさ） */
   border-radius: 2px;
 
   background: linear-gradient(180deg, rgba(16,16,16,0.94), rgba(11,11,10,0.98));
@@ -293,8 +286,6 @@
   box-shadow:
     0 70px 180px rgba(0,0,0,0.62),
     0 0 0 1px rgba(255,255,255,0.03);
-
-  transform: none;
 }
 
 .imageFrame::before{
@@ -332,8 +323,6 @@
   width:100%;
   height:100%;
   object-fit:cover;
-
-  /* 少し寄りで迫力 */
   object-position: 52% center;
 
   opacity: 0; /* gsap */
@@ -429,32 +418,21 @@
     gap: clamp(28px, 6vw, 48px);
   }
 
-  .body{
-    max-width: 100%;
-    transform: none;
-  }
-
   .imageCol{
     justify-content:flex-start;
     margin-right: 0;
-    margin-top: 0;
   }
 
   .imageFrame{
     width: min(100%, 720px);
     min-height: clamp(500px, 92vw, 820px);
-    transform: rotate(-0.8deg) translate3d(0, 8px, 0);
+    transform: rotate(-0.6deg) translate3d(0, 8px, 0);
   }
 
   .title,
   .titleSub,
   .titleMainLine{
     white-space: normal;
-  }
-
-  .copy p:nth-child(2),
-  .copy p:nth-child(3){
-    margin-left: 0;
   }
 
   .rail{ display:none; }
@@ -468,20 +446,40 @@
       clamp(96px, 18vw, 140px);
   }
 
-  .head{ gap: 14px; }
+  .head{
+    gap: 14px;
+    margin-bottom: 24px;
+  }
 
   .kickerRow{ min-width: 120px; }
 
+  /* ✅ SP：文章は短め・詰めすぎない */
   .copy{
     font-size: 13.5px;
-    line-height: 1.95;
+    line-height: 1.92;
+    letter-spacing: 0.02em;
+    margin-top: 22px;
+  }
+
+  .copy p + p{ margin-top: 14px; }
+
+  .note{
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    margin-top: 18px;
   }
 
   .imageFrame{
     width: calc(100% + 20px);
     margin-right: -10px;
-    min-height: 68svh;
+    min-height: 64svh;
     transform: none;
+  }
+
+  .titleMainLine{
+    font-size: clamp(30px, 9.6vw, 48px);
+    line-height: 1.14;
+    padding-left: 0;
   }
 }
 
@@ -500,4 +498,29 @@
     transform: none;
     filter: brightness(0.68) contrast(1.10) saturate(0.86);
   }
+}
+/* =========================
+   SPEC PC readability boost
+   ========================= */
+@media (min-width: 960px){
+  /* 文章を読むセクションなので “文字の密度” を上げる */
+  .copy{
+    font-size: 18px;
+    line-height: 2.05;
+    letter-spacing: 0.016em;
+  }
+
+  .copy p + p{
+    margin-top: 22px;
+  }
+
+  .note{
+    font-size: 13px;
+    letter-spacing: 0.11em;
+  }
+}
+
+@media (min-width: 1280px){
+  .copy{ font-size: 18.5px; }
+  .note{ font-size: 13.5px; }
 }

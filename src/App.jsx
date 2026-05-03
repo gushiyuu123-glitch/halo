@@ -38,21 +38,53 @@ function useReducedMotion() {
   return reduced;
 }
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // ✅ SP判定（幅＋指デバイス）
+    const mq = window.matchMedia?.("(max-width: 820px), (pointer: coarse)");
+    if (!mq) return;
+
+    const update = () => setIsMobile(mq.matches);
+    update();
+
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
+  return isMobile;
+}
+
 export default function App() {
   const reduced = useReducedMotion();
+  const isMobile = useIsMobile();
+
+  // ✅ ScrollTrigger用：isMobileの最新値をeffect内で参照する（effect再実行を避ける）
+  const isMobileRef = useRef(false);
+  useEffect(() => {
+    isMobileRef.current = isMobile;
+  }, [isMobile]);
+
   const [navReady, setNavReady] = useState(false);
   const navTimerRef = useRef(0);
 
+  /* =========================
+     Nav show timing
+     ========================= */
   useEffect(() => {
     if (reduced) {
       setNavReady(true);
       return;
     }
 
-    const NAV_DELAY_MS = 3400;
+    const NAV_DELAY_MS = isMobile ? 2200 : 3400;
 
     const raf = requestAnimationFrame(() => {
-      navTimerRef.current = window.setTimeout(() => setNavReady(true), NAV_DELAY_MS);
+      navTimerRef.current = window.setTimeout(
+        () => setNavReady(true),
+        NAV_DELAY_MS
+      );
     });
 
     return () => {
@@ -60,23 +92,60 @@ export default function App() {
       if (navTimerRef.current) window.clearTimeout(navTimerRef.current);
       navTimerRef.current = 0;
     };
-  }, [reduced]);
+  }, [reduced, isMobile]);
 
+  /* =========================
+     ScrollTrigger stabilize (mobile-safe)
+     ※ DOM分離なし前提：effectは1回だけ。isMobileはrefで見る。
+     ========================= */
   useEffect(() => {
-    const refresh = () => ScrollTrigger.refresh();
-
-    const raf = requestAnimationFrame(refresh);
-    window.addEventListener("load", refresh);
+    // ✅ iOSのアドレスバー伸縮による refresh 暴れを抑える
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     let cancelled = false;
-    document.fonts?.ready?.then(() => {
-      if (!cancelled) refresh();
-    });
+    let rafId = 0;
+
+    const requestRefresh = () => {
+      if (cancelled) return;
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        if (cancelled) return;
+        ScrollTrigger.refresh();
+      });
+    };
+
+    // 初回
+    requestRefresh();
+
+    // load（画像など）
+    window.addEventListener("load", requestRefresh);
+
+    // fonts（フォントでレイアウトが変わる場合）
+    const fontReady = document.fonts?.ready;
+    if (fontReady?.then) {
+      fontReady.then(() => {
+        if (!cancelled) requestRefresh();
+      });
+    }
+
+    // ✅ SPは回転のときだけ軽く refresh（必要最低限）
+    const onOrientation = () => {
+      if (!isMobileRef.current) return;
+      window.setTimeout(() => {
+        if (!cancelled) requestRefresh();
+      }, 240);
+    };
+    window.addEventListener("orientationchange", onOrientation);
 
     return () => {
       cancelled = true;
-      cancelAnimationFrame(raf);
-      window.removeEventListener("load", refresh);
+      if (rafId) cancelAnimationFrame(rafId);
+
+      window.removeEventListener("load", requestRefresh);
+      window.removeEventListener("orientationchange", onOrientation);
+
+      // ✅ unmount時だけ全 kill（isMobile変化でkillしない）
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);

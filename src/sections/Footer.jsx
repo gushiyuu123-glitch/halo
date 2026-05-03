@@ -5,11 +5,11 @@ import SankouSection from "../components/motion/SankouSection";
 const CREDITS = [
   { role: "A NIGHT", name: "HALO" },
   { role: "CONCEPT", name: "Home Projector Experience" },
-  { role: "DESIGN", name: "Quiet Luxury / Film-like Veil" },
-  { role: "RHYTHM", name: "Breath / Pause / Resolve" },
+  { role: "DESIGN", name: "Dark Luxury / Film-like Veil" },
+  { role: "RHYTHM", name: "Fade / Pause / Resolve" },
   { role: "TYPE", name: "Noto Serif JP / Inter" },
-  { role: "SCENE", name: "Movie / Music / Quiet Time" },
-  { role: "DETAIL", name: "Precision & Silence" },
+  { role: "SCENE", name: "Movie / Music / Off Time" },
+  { role: "DETAIL", name: "Precision & Restraint" },
   { role: "END", name: "The room returns to night." },
 ];
 
@@ -73,7 +73,6 @@ export default function Footer() {
       },
       {
         root: null,
-        // “入った感”が出たところで開始
         threshold: 0.28,
         rootMargin: "0px 0px -10% 0px",
       }
@@ -103,7 +102,7 @@ export default function Footer() {
       <div className={styles.inner}>
         <div className={styles.head}>
           <p className={styles.number} data-sankou="number">
-            09
+            10
           </p>
 
           <div className={styles.kickerRow} data-sankou="kickerRow">
@@ -184,7 +183,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ✅ お前のリンクは “エンドロールとは別” で、フッター最下部に固定 */}
+      {/* ✅ Creator links（最下部固定） */}
       <div className={styles.creatorFixed} aria-label="Creator links">
         <a
           className={styles.creatorLink}
@@ -193,7 +192,7 @@ export default function Footer() {
           rel="noopener noreferrer"
           aria-label="沖縄のWeb制作・Webデザイン｜GUSHIKEN DESIGN（本拠地）"
         >
-          沖縄のWeb制作・Webデザイン｜GUSHIKEN DESIGN（本拠地）
+          GUSHIKEN DESIGN（本拠地）
         </a>
 
         <a
@@ -203,7 +202,7 @@ export default function Footer() {
           rel="noopener noreferrer"
           aria-label="制作記録・ポートフォリオ｜note"
         >
-          制作記録・ポートフォリオ｜note
+          制作記録｜note
         </a>
       </div>
     </SankouSection>

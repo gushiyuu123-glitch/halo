@@ -16,7 +16,7 @@ const SPACE_ITEMS = [
     family: "ROOM",
     name: "HALO Room",
     jp: "寝室 / 1K / 小距離",
-    desc: "小さめでも、像が整って“映画になる”。",
+    desc: "小さくても、輪郭が出て“映画になる”。",
     price: 49800,
     spec: "Full HD",
     control: "Remote + App",
@@ -51,7 +51,7 @@ const SPACE_ITEMS = [
     family: "CAR",
     name: "HALO Car",
     jp: "車内 / 小空間",
-    desc: "暗い空間で、締まりが一番出る。",
+    desc: "暗い空間で、映像が締まる。",
     price: 39800,
     spec: "HD",
     control: "Phone Link",
@@ -68,7 +68,7 @@ const SPACE_ITEMS = [
     family: "BEDSIDE",
     name: "HALO Bedside",
     jp: "ベッド横 / 深夜",
-    desc: "灯りを落としたあと、静かに始まる。",
+    desc: "灯りを落としたあと、すぐ始まる。",
     price: 54800,
     spec: "Full HD",
     control: "App First",
@@ -89,7 +89,7 @@ const FEATURE_ITEMS = [
     family: "4K",
     name: "HALO Studio 4K",
     jp: "高解像度 / 作品鑑賞",
-    desc: "解像の“気持ちよさ”を押し出す上位。",
+    desc: "解像度の気持ちよさが違う。",
     price: 99800,
     spec: "4K / HDR",
     control: "Remote + App",
@@ -106,7 +106,7 @@ const FEATURE_ITEMS = [
     family: "SMART",
     name: "HALO Smart Link",
     jp: "スマホ連動 / 迷わせない",
-    desc: "“考えさせない操作”を最優先。",
+    desc: "操作で迷わせない。",
     price: 64800,
     spec: "Full HD",
     control: "App First",
@@ -122,8 +122,8 @@ const FEATURE_ITEMS = [
     lane: "FEATURE",
     family: "QUIET",
     name: "HALO Quiet",
-    jp: "静音 / 深夜向け",
-    desc: "沈黙に割り込まない。音を薄くする。",
+    jp: "動作音 / 深夜向け",
+    desc: "鑑賞の邪魔になりにくい。動作音を抑える。",
     price: 74800,
     spec: "Full HD",
     control: "Remote + App",
@@ -140,7 +140,7 @@ const FEATURE_ITEMS = [
     family: "PORTABLE",
     name: "HALO Portable",
     jp: "持ち運び / 外でも",
-    desc: "夜が整う場所を、持っていける。",
+    desc: "どこへでも、夜を連れていける。",
     price: 59800,
     spec: "Full HD",
     control: "App + Battery",
@@ -205,7 +205,10 @@ function ProductSlide({ item, color, onPickColor, onAdd }) {
 
         <div className={styles.actionRow}>
           <div className={styles.colors}>
-            <span className={styles.colorLabel}>COLOR</span>
+            <span className={styles.colorLabel}>
+              COLOR <span className={styles.colorLabelSub}>選ぶ</span>
+            </span>
+
             <div className={styles.dots} role="list">
               {item.colors.map((c) => {
                 const active = c.key === color;
@@ -293,7 +296,6 @@ export default function Lineup() {
     [add, openCart, spaceColor, featColor]
   );
 
-  // Swiper refs（rowごと）
   const spaceSwiperRef = useRef(null);
   const featSwiperRef = useRef(null);
 
@@ -305,7 +307,6 @@ export default function Lineup() {
     setter({ prev: !sw.isBeginning, next: !sw.isEnd });
   };
 
-  // ✅ 2枚表示（PC） / 1枚（SP）で、1画面に各段2商品が成立
   const swiperBase = {
     modules: [FreeMode],
     freeMode: { enabled: true, momentum: true, momentumBounce: false },
@@ -351,125 +352,138 @@ export default function Lineup() {
         <div className={styles.intro}>
           <h2 className={styles.title} data-sankou="title">
             <span className={styles.titleSub}>部屋に合わせて、</span>
-            <span className={styles.titleMainLine}>迎えるモデルを選ぶ。</span>
+            <span className={styles.titleMainLine}>モデルを選ぶ。</span>
           </h2>
+
+          <p className={styles.introLead} data-sankou="copy">
+            迷ったら、まずは「空間で選ぶ」から。
+          </p>
         </div>
 
-        {/* ROW 1 */}
-        <section className={styles.row} aria-label="Space lineup">
-          <div className={styles.rowHead}>
-            <div className={styles.rowTitle}>
-              <span className={styles.rowTag}>SPACE LINE</span>
-              <span className={styles.rowText}>空間で選ぶ</span>
+        {/* ✅ ここを1つだけ meta にする（表示が死なないフェード） */}
+        <div className={styles.rows} data-sankou="meta">
+          {/* ROW 1 */}
+          <section className={styles.row} aria-label="Space lineup">
+            <div className={styles.rowHead}>
+              <div className={styles.rowTitle}>
+                <span className={styles.rowTag}>SPACE</span>
+                <span className={styles.rowText}>空間で選ぶ</span>
+              </div>
+
+              <div className={styles.rowHint} aria-hidden="true">
+                <span className={styles.hintSp}>swipe →</span>
+                <span className={styles.hintPc}>drag →</span>
+              </div>
             </div>
-            <div className={styles.rowHint}>swipe →</div>
-          </div>
 
-          {/* ✅ 矢印：左右（青丸位置） */}
-          <div className={styles.swiperShell} aria-label="Space slider shell">
-            <button
-              type="button"
-              className={`${styles.sideArrow} ${styles.sidePrev}`}
-              onClick={() => spaceSwiperRef.current?.slidePrev()}
-              disabled={!spaceNav.prev}
-              aria-label="前へ"
-            >
-              <span className={`${styles.arrowIcon} ${styles.arrowPrev}`} aria-hidden="true" />
-            </button>
+            <div className={styles.swiperShell} aria-label="Space slider shell">
+              <button
+                type="button"
+                className={`${styles.sideArrow} ${styles.sidePrev}`}
+                onClick={() => spaceSwiperRef.current?.slidePrev()}
+                disabled={!spaceNav.prev}
+                aria-label="前へ"
+              >
+                <span className={`${styles.arrowIcon} ${styles.arrowPrev}`} aria-hidden="true" />
+              </button>
 
-            <Swiper
-              {...swiperBase}
-              className={styles.swiper}
-              onSwiper={(sw) => {
-                spaceSwiperRef.current = sw;
-                syncNav(sw, setSpaceNav);
-              }}
-              onSlideChange={(sw) => syncNav(sw, setSpaceNav)}
-              onReachBeginning={(sw) => syncNav(sw, setSpaceNav)}
-              onReachEnd={(sw) => syncNav(sw, setSpaceNav)}
-              onFromEdge={(sw) => syncNav(sw, setSpaceNav)}
-            >
-              {SPACE_ITEMS.map((item) => (
-                <SwiperSlide key={item.id} className={styles.slide}>
-                  <ProductSlide
-                    item={item}
-                    color={spaceColor[item.id]}
-                    onPickColor={pickSpace}
-                    onAdd={handleAdd}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+              <Swiper
+                {...swiperBase}
+                className={styles.swiper}
+                onSwiper={(sw) => {
+                  spaceSwiperRef.current = sw;
+                  syncNav(sw, setSpaceNav);
+                }}
+                onSlideChange={(sw) => syncNav(sw, setSpaceNav)}
+                onReachBeginning={(sw) => syncNav(sw, setSpaceNav)}
+                onReachEnd={(sw) => syncNav(sw, setSpaceNav)}
+                onFromEdge={(sw) => syncNav(sw, setSpaceNav)}
+              >
+                {SPACE_ITEMS.map((item) => (
+                  <SwiperSlide key={item.id} className={styles.slide}>
+                    <ProductSlide
+                      item={item}
+                      color={spaceColor[item.id]}
+                      onPickColor={pickSpace}
+                      onAdd={handleAdd}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
 
-            <button
-              type="button"
-              className={`${styles.sideArrow} ${styles.sideNext}`}
-              onClick={() => spaceSwiperRef.current?.slideNext()}
-              disabled={!spaceNav.next}
-              aria-label="次へ"
-            >
-              <span className={`${styles.arrowIcon} ${styles.arrowNext}`} aria-hidden="true" />
-            </button>
-          </div>
-        </section>
-
-        {/* ROW 2 */}
-        <section className={styles.row} aria-label="Feature lineup">
-          <div className={styles.rowHead}>
-            <div className={styles.rowTitle}>
-              <span className={styles.rowTag}>FEATURE LINE</span>
-              <span className={styles.rowText}>体験で選ぶ</span>
+              <button
+                type="button"
+                className={`${styles.sideArrow} ${styles.sideNext}`}
+                onClick={() => spaceSwiperRef.current?.slideNext()}
+                disabled={!spaceNav.next}
+                aria-label="次へ"
+              >
+                <span className={`${styles.arrowIcon} ${styles.arrowNext}`} aria-hidden="true" />
+              </button>
             </div>
-            <div className={styles.rowHint}>swipe →</div>
-          </div>
+          </section>
 
-          {/* ✅ 矢印：左右（青丸位置） */}
-          <div className={styles.swiperShell} aria-label="Feature slider shell">
-            <button
-              type="button"
-              className={`${styles.sideArrow} ${styles.sidePrev}`}
-              onClick={() => featSwiperRef.current?.slidePrev()}
-              disabled={!featNav.prev}
-              aria-label="前へ"
-            >
-              <span className={`${styles.arrowIcon} ${styles.arrowPrev}`} aria-hidden="true" />
-            </button>
+          {/* ROW 2 */}
+          <section className={styles.row} aria-label="Feature lineup">
+            <div className={styles.rowHead}>
+              <div className={styles.rowTitle}>
+                <span className={styles.rowTag}>FEATURE</span>
+                <span className={styles.rowText}>体験で選ぶ</span>
+              </div>
 
-            <Swiper
-              {...swiperBase}
-              className={styles.swiper}
-              onSwiper={(sw) => {
-                featSwiperRef.current = sw;
-                syncNav(sw, setFeatNav);
-              }}
-              onSlideChange={(sw) => syncNav(sw, setFeatNav)}
-              onReachBeginning={(sw) => syncNav(sw, setFeatNav)}
-              onReachEnd={(sw) => syncNav(sw, setFeatNav)}
-              onFromEdge={(sw) => syncNav(sw, setFeatNav)}
-            >
-              {FEATURE_ITEMS.map((item) => (
-                <SwiperSlide key={item.id} className={styles.slide}>
-                  <ProductSlide
-                    item={item}
-                    color={featColor[item.id]}
-                    onPickColor={pickFeat}
-                    onAdd={handleAdd}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+              <div className={styles.rowHint} aria-hidden="true">
+                <span className={styles.hintSp}>swipe →</span>
+                <span className={styles.hintPc}>drag →</span>
+              </div>
+            </div>
 
-            <button
-              type="button"
-              className={`${styles.sideArrow} ${styles.sideNext}`}
-              onClick={() => featSwiperRef.current?.slideNext()}
-              disabled={!featNav.next}
-              aria-label="次へ"
-            >
-              <span className={`${styles.arrowIcon} ${styles.arrowNext}`} aria-hidden="true" />
-            </button>
-          </div>
-        </section>
+            <div className={styles.swiperShell} aria-label="Feature slider shell">
+              <button
+                type="button"
+                className={`${styles.sideArrow} ${styles.sidePrev}`}
+                onClick={() => featSwiperRef.current?.slidePrev()}
+                disabled={!featNav.prev}
+                aria-label="前へ"
+              >
+                <span className={`${styles.arrowIcon} ${styles.arrowPrev}`} aria-hidden="true" />
+              </button>
+
+              <Swiper
+                {...swiperBase}
+                className={styles.swiper}
+                onSwiper={(sw) => {
+                  featSwiperRef.current = sw;
+                  syncNav(sw, setFeatNav);
+                }}
+                onSlideChange={(sw) => syncNav(sw, setFeatNav)}
+                onReachBeginning={(sw) => syncNav(sw, setFeatNav)}
+                onReachEnd={(sw) => syncNav(sw, setFeatNav)}
+                onFromEdge={(sw) => syncNav(sw, setFeatNav)}
+              >
+                {FEATURE_ITEMS.map((item) => (
+                  <SwiperSlide key={item.id} className={styles.slide}>
+                    <ProductSlide
+                      item={item}
+                      color={featColor[item.id]}
+                      onPickColor={pickFeat}
+                      onAdd={handleAdd}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+              <button
+                type="button"
+                className={`${styles.sideArrow} ${styles.sideNext}`}
+                onClick={() => featSwiperRef.current?.slideNext()}
+                disabled={!featNav.next}
+                aria-label="次へ"
+              >
+                <span className={`${styles.arrowIcon} ${styles.arrowNext}`} aria-hidden="true" />
+              </button>
+            </div>
+          </section>
+        </div>
       </div>
     </SankouSection>
   );

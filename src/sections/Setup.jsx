@@ -33,14 +33,22 @@ export default function Setup() {
           <img
             data-sankou="image"
             src="/images/halo-setup-human.jpeg"
-            alt="HALOを簡単に設置している夜のリビングシーン"
+            alt="HALOを設置している夜のリビングシーン"
             className={styles.heroImage}
             decoding="async"
             loading="lazy"
             draggable="false"
           />
-          <div className={styles.imageVeil} data-sankou="veil" aria-hidden="true" />
-          <div className={styles.imageFlare} data-sankou="flare" aria-hidden="true" />
+          <div
+            className={styles.imageVeil}
+            data-sankou="veil"
+            aria-hidden="true"
+          />
+          <div
+            className={styles.imageFlare}
+            data-sankou="flare"
+            aria-hidden="true"
+          />
         </div>
 
         {/* 文章（右） */}
@@ -51,7 +59,11 @@ export default function Setup() {
 
           <div className={styles.kickerRow} data-sankou="kicker">
             <span className={styles.kicker}>SETUP</span>
-            <span className={styles.kickerLine} data-sankou="kickerLine" aria-hidden="true" />
+            <span
+              className={styles.kickerLine}
+              data-sankou="kickerLine"
+              aria-hidden="true"
+            />
           </div>
 
           <h2 className={styles.title} data-sankou="title">
@@ -59,14 +71,19 @@ export default function Setup() {
             <span className={styles.titleMainLine}>灯りを落とすだけ。</span>
           </h2>
 
+          {/* ✅ コピー研磨（“整う/静か”封印。結果で言い切る） */}
           <p className={styles.lead} data-sankou="copy">
-            準備は複雑にしません。
+            準備は、迷わせません。
             <br />
-            夜が整った瞬間に、上映が始まるように。
+            置いて、つなげば、すぐ映る。
           </p>
 
           {/* 3つだけ（入れまくり禁止） */}
-          <div className={styles.steps} data-sankou="meta" aria-label="setup steps">
+          <div
+            className={styles.steps}
+            data-sankou="meta"
+            aria-label="setup steps"
+          >
             <div className={styles.step}>
               <span className={styles.stepNo}>01</span>
               <p className={styles.stepText}>置く。</p>

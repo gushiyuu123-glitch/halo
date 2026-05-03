@@ -5,6 +5,7 @@ import SankouSection from "../components/motion/SankouSection";
 export default function Product() {
   const sankouOptions = useMemo(
     () => ({
+      idPrefix: "product",
       flare: true,
       depth: true,
 
@@ -58,10 +59,13 @@ export default function Product() {
             <span className={styles.titleMainLine}>美しい。</span>
           </h2>
 
+          {/* ✅ コピー改善：「静か」「整う」禁止。結果で言い切る */}
           <p className={styles.lead} data-sankou="copy">
-            使わない時間も、部屋の空気を壊さない。
+            使わない時間も、部屋の印象を邪魔しない。
             <br />
-            光も音も、静かに整えていくための道具。
+            眩しさを抑えて、動作音も控える。
+            <br />
+            置いたまま、成立するプロジェクター。
           </p>
 
           {/* “項目入れまくる”禁止：3つだけ */}
@@ -72,7 +76,7 @@ export default function Product() {
           >
             <div className={styles.fact}>
               <span className={styles.factNo}>01</span>
-              <span className={styles.factText}>静かな動作音</span>
+              <span className={styles.factText}>動作音を抑える</span>
             </div>
             <div className={styles.fact}>
               <span className={styles.factNo}>02</span>
@@ -80,7 +84,7 @@ export default function Product() {
             </div>
             <div className={styles.fact}>
               <span className={styles.factNo}>03</span>
-              <span className={styles.factText}>夜に馴染む光</span>
+              <span className={styles.factText}>眩しさを抑える</span>
             </div>
           </div>
         </div>
@@ -95,6 +99,7 @@ export default function Product() {
             loading="lazy"
             draggable="false"
           />
+
           <div
             className={styles.imageVeil}
             data-sankou="veil"
@@ -105,6 +110,7 @@ export default function Product() {
             data-sankou="flare"
             aria-hidden="true"
           />
+
           <p className={styles.imageLabel} data-sankou="label">
             HAND / MATERIAL / NIGHT
           </p>

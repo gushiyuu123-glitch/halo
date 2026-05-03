@@ -11,7 +11,7 @@ export default function Contact() {
 
       start: "top 82%",
 
-      // “売れる明るさ”は残しつつ、主役はフォーム（光膜はやさしく）
+      // 主役はフォーム（光膜は薄く）
       veilFrom: 0.20,
       veilTo: 0.08,
       veilDur: 1.1,
@@ -42,7 +42,7 @@ export default function Contact() {
       <div className={styles.inner}>
         <div className={styles.head}>
           <p className={styles.number} data-sankou="number">
-            08
+            09
           </p>
 
           <div className={styles.kickerRow} data-sankou="kicker">
@@ -61,14 +61,14 @@ export default function Contact() {
               相談する。
             </span>
             <span className={styles.titleMainLine} data-sankou="titleLine">
-              整えた夜のまま、聞ける。
+              迷いを、ここで消す。
             </span>
           </h2>
 
           <p className={styles.lead} data-sankou="copy">
-            在庫・配送・設置・部屋の距離感。
+            在庫・配送・設置・距離感。
             <br />
-            迷う点だけ、短くで大丈夫です。
+            気になる点だけ、短くて大丈夫です。
           </p>
 
           <form
@@ -116,7 +116,7 @@ export default function Contact() {
                 name="message"
                 className={styles.textarea}
                 rows={5}
-                placeholder="例）白壁じゃないけど大丈夫？／距離が短い部屋でも映る？ など"
+                placeholder="例）白壁じゃないけど大丈夫？／距離が短い部屋でも映る？／どれを選べばいい？ など"
               />
             </div>
 
@@ -129,12 +129,12 @@ export default function Contact() {
               </button>
 
               <a className={styles.secondary} href="#faq">
-                迷いを確認する（FAQへ）
+                FAQを見る
               </a>
             </div>
 
             <p className={styles.note}>
-              ※ ここはデモのため送信は無効化しています。実装時はフォーム送信 or 外部決済に合わせて接続。
+              ※ デモのため送信は無効化しています。実装時はフォーム送信 / 外部決済に合わせて接続してください。
             </p>
           </form>
         </div>

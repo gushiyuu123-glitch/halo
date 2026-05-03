@@ -1,7 +1,6 @@
 .lineup{
   position: relative;
 
-  /* ✅ 息：上下の余白を増やす（ただし暴れない） */
   padding:
     clamp(120px, 10vw, 180px)
     clamp(24px, 4.5vw, 92px)
@@ -20,7 +19,7 @@
   margin-top: -1px;
 }
 
-/* 背景ワード（左寄りに見えすぎないよう中央寄せ寄り） */
+/* 背景ワード */
 .bgWord{
   position:absolute;
   left: 50%;
@@ -68,11 +67,10 @@
   will-change: opacity;
 }
 
-/* ✅ フレーム：広げつつ、左右に余白（左寄り撲滅） */
+/* フレーム */
 .inner{
   position: relative;
   z-index: 2;
-
   width: min(1840px, calc(100vw - clamp(56px, 7vw, 140px)));
   margin-inline: auto;
 }
@@ -151,14 +149,27 @@
   white-space: nowrap;
 }
 
-/* ✅ row：中央固定 + ワイド化（でも巨大化しない） */
+.introLead{
+  margin: 14px 0 0;
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(243,239,230,0.54);
+}
+
+/* ✅ rows wrapper（Sankou用：CSSでは隠さない！） */
+.rows{
+  margin-top: 0;
+}
+
+/* row */
 .row{
   max-width: 1600px;
   margin: clamp(26px, 2.2vw, 34px) auto 0;
+  overflow: visible;
 }
-
 .row + .row{
-  margin-top: clamp(34px, 3vw, 46px); /* ✅ 2段の“息” */
+  margin-top: clamp(34px, 3vw, 46px);
 }
 
 .rowHead{
@@ -188,7 +199,7 @@
   font-family:"Inter","Helvetica Neue",Arial,sans-serif;
   font-size: 12px;
   letter-spacing: 0.10em;
-  color: rgba(243,239,230,0.62);
+  color: rgba(243,239,230,0.70);
 }
 
 .rowHint{
@@ -196,8 +207,16 @@
   letter-spacing: 0.14em;
   color: rgba(243,239,230,0.40);
 }
+.hintSp{ display:none; }
+.hintPc{ display:inline; }
 
-/* ✅ Swiper：左右に呼吸、商品間の距離も視覚的に気持ちよく */
+/* Swiper */
+.swiperShell{
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
 .swiper{
   width: 100%;
   overflow: visible;
@@ -243,7 +262,7 @@
     inset 0 0 0 1px rgba(243,239,230,0.14);
 }
 
-/* ✅ 画像が切れにくい器：16:9 */
+/* media */
 .media{
   position: relative;
   aspect-ratio: 16 / 9;
@@ -288,9 +307,7 @@
 }
 
 /* body */
-.body{
-  padding: 16px 16px 16px; /* ✅ 中の“息” */
-}
+.body{ padding: 16px; }
 
 .headRow{
   display:flex;
@@ -372,6 +389,11 @@
   letter-spacing: 0.22em;
   color: rgba(243,239,230,0.48);
 }
+.colorLabelSub{
+  margin-left: 6px;
+  letter-spacing: 0.10em;
+  color: rgba(243,239,230,0.40);
+}
 
 .dots{
   display:flex;
@@ -412,13 +434,14 @@
 .addBtn{
   border:0;
   border-radius: 999px;
-  padding: 10px 15px;
+  padding: 10px 16px;
+
   background: rgba(255,255,255,0.035);
   box-shadow:
     0 14px 42px rgba(0,0,0,0.20),
     inset 0 0 0 1px rgba(243,239,230,0.14);
-  cursor:pointer;
 
+  cursor:pointer;
   transition:
     transform 320ms cubic-bezier(0.18,0.62,0.2,1),
     background-color 320ms cubic-bezier(0.18,0.62,0.2,1),
@@ -435,60 +458,13 @@
 .addText{
   font-family:"Inter","Helvetica Neue",Arial,sans-serif;
   font-size: 11px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.14em;
   color: rgba(250,244,232,0.92);
+  white-space: nowrap;
 }
 
-/* =========================
-   Responsive
-   ========================= */
-@media (max-width: 1080px){
-  .titleSub, .titleMainLine{ white-space: normal; }
-  .row{ max-width: 100%; }
-}
-
-@media (max-width: 640px){
-  .lineup{
-    padding:
-      clamp(96px, 16vw, 128px)
-      18px
-      clamp(92px, 15vw, 120px);
-  }
-
-  .inner{ width: 100%; }
-
-  .bgWord{
-    font-size: clamp(92px, 24vw, 200px);
-    top: 100px;
-  }
-
-  .swiper{
-    padding: 8px 4px 14px;
-  }
-}
-.addBtn{
-  padding: 10px 16px;   /* 少しだけ横を増やす */
-}
-
-.addText{
-  font-size: 11px;
-  letter-spacing: 0.14em;  /* 0.22emだと日本語で間延びしやすい */
-  white-space: nowrap;     /* 2行割れ防止 */
-}
-/* ===== side arrows (blue-circle position) ===== */
-
-.swiperShell {
-  position: relative;
-  width: 100%;
-  overflow: visible; /* 外に逃がすため */
-}
-
-.row {
-  overflow: visible;
-}
-
-/* ボタン本体 */
-.sideArrow {
+/* ===== side arrows ===== */
+.sideArrow{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -511,66 +487,112 @@
   opacity: 0.92;
   transition: transform 220ms ease, opacity 220ms ease, border-color 220ms ease;
 }
-
-.sideArrow:hover {
+.sideArrow:hover{
   transform: translateY(-50%) scale(1.04);
   border-color: rgba(243,239,230,0.26);
   opacity: 1;
 }
-
-.sideArrow:active {
-  transform: translateY(-50%) scale(0.985);
-}
-
-.sideArrow:disabled {
+.sideArrow:active{ transform: translateY(-50%) scale(0.985); }
+.sideArrow:disabled{
   opacity: 0.26;
   pointer-events: none;
 }
 
-/* 左右位置（“外側”に逃がす） */
-.sidePrev {
-  left: clamp(-92px, -5.4vw, -56px);
-}
+.sidePrev{ left: clamp(-92px, -5.4vw, -56px); }
+.sideNext{ right: clamp(-92px, -5.4vw, -56px); }
 
-.sideNext {
-  right: clamp(-92px, -5.4vw, -56px);
-}
-
-/* 中の矢印（CSSで描く） */
-.arrowIcon {
+.arrowIcon{
   width: 10px;
   height: 10px;
   border-right: 2px solid rgba(243,239,230,0.82);
   border-bottom: 2px solid rgba(243,239,230,0.82);
   transform: rotate(-45deg);
 }
+.arrowPrev{ transform: rotate(135deg); }
+.arrowNext{ transform: rotate(-45deg); }
 
-.arrowPrev {
-  transform: rotate(135deg);
+/* tablet */
+@media (max-width: 1100px){
+  .sidePrev{ left: -22px; }
+  .sideNext{ right: -22px; }
 }
 
-.arrowNext {
-  transform: rotate(-45deg);
+/* general responsive */
+@media (max-width: 1080px){
+  .titleSub, .titleMainLine{ white-space: normal; }
+  .row{ max-width: 100%; }
 }
 
-/* タブレット：逃がし量を弱める */
-@media (max-width: 1100px) {
-  .sidePrev { left: -22px; }
-  .sideNext { right: -22px; }
-}
+/* SP：swipe文字と矢印が重ならない */
+@media (max-width: 767px){
+  .hintPc{ display:none; }
+  .hintSp{ display:inline; }
 
-/* SP：外側は窮屈なので “上” に退避（邪魔しない） */
-@media (max-width: 767px) {
-  .sideArrow {
-    top: -56px;
+  .swiperShell{
+    padding-top: 64px; /* 矢印置き場 */
+  }
+
+  .sideArrow{
+    top: 10px;
     transform: none;
     width: 44px;
     height: 44px;
   }
   .sideArrow:hover,
-  .sideArrow:active {
-    transform: none;
+  .sideArrow:active{ transform: none; }
+
+  .sidePrev{ left: auto; right: 54px; }
+  .sideNext{ right: 0; }
+}
+
+@media (max-width: 640px){
+  .lineup{
+    padding:
+      clamp(96px, 16vw, 128px)
+      18px
+      clamp(92px, 15vw, 120px);
   }
-  .sidePrev { left: auto; right: 54px; }
-  .sideNext { right: 0; }
+
+  .inner{ width: 100%; }
+
+  .bgWord{
+    font-size: clamp(92px, 24vw, 200px);
+    top: 100px;
+  }
+
+  .swiper{ padding: 8px 4px 14px; }
+}
+
+/* ✅ PC readability boost */
+@media (min-width: 960px){
+  .body{ padding: 18px; }
+
+  .name{ font-size: 20px; line-height: 1.12; }
+  .price{ font-size: 20px; line-height: 1.12; }
+
+  .jp{ font-size: 12px; }
+  .tax{ font-size: 11px; }
+
+  .desc{ font-size: 13.5px; line-height: 1.85; }
+
+  .metaChip{ font-size: 11px; padding: 6px 10px; }
+
+  .addText{ font-size: 12px; letter-spacing: 0.12em; }
+
+  .colorLabel{ font-size: 11px; }
+
+  .rowText{ font-size: 13px; }
+  .rowHint{ font-size: 12px; }
+}
+
+@media (min-width: 1280px){
+  .name{ font-size: 21px; }
+  .price{ font-size: 21px; }
+  .desc{ font-size: 14px; }
+}
+@media (max-width: 767px){
+  .rowHint{ color: rgba(243,239,230,0.52); }
+}
+.image{
+  background: #070707;
 }

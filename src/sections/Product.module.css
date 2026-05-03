@@ -436,7 +436,39 @@
     padding:
       clamp(72px, 18vw, 104px)
       18px
-      clamp(96px, 18vw, 140px);
+      clamp(92px, 18vw, 132px);
+  }
+
+  /* ✅ SP：番号・リードの密度を整える */
+  .number{
+    margin-bottom: 18px;
+    font-size: 10px;
+  }
+
+  .lead{
+    margin-top: 22px;
+    font-size: 13.5px;
+    line-height: 2.0;
+    letter-spacing: 0.02em;
+  }
+
+  .facts{
+    margin-top: 18px;
+  }
+
+  .fact{
+    padding: 12px 0;
+    gap: 12px;
+  }
+
+  .factNo{
+    font-size: 10px;
+    transform: translateY(-1px);
+  }
+
+  .factText{
+    font-size: 15px;
+    line-height: 1.58;
   }
 
   .imageArea{
@@ -452,7 +484,14 @@
     padding-left:0;
   }
 
-  .factText{ font-size: 15px; }
+  /* ✅ SP：ラベルが主張しすぎない */
+  .imageLabel{
+    left: 14px;
+    bottom: 12px;
+    font-size: 9px;
+    letter-spacing: 0.20em;
+    color: rgba(243,239,230,0.42);
+  }
 }
 
 /* ===== Reduced motion ===== */
@@ -466,4 +505,38 @@
     transform: none;
     filter: none;
   }
+}
+/* =========================
+   PRODUCT PC readability boost
+   ========================= */
+@media (min-width: 960px){
+  /* 本文 */
+  .lead{
+    font-size: 18px;
+    line-height: 2.05;
+    letter-spacing: 0.016em;
+  }
+
+  /* 3 facts（要点） */
+  .factText{
+    font-size: 17px;
+    line-height: 1.62;
+  }
+  .factNo{
+    font-size: 12px;
+    transform: translateY(-2px);
+  }
+
+  /* 見出し周り（微調整） */
+  .kicker{ font-size: 13px; }
+  .number{ font-size: 14px; }
+
+  /* テキストの器（詰まり防止） */
+  .contentArea{ max-width: 640px; }
+}
+
+@media (min-width: 1280px){
+  .lead{ font-size: 18.5px; }
+  .factText{ font-size: 17.5px; }
+  .contentArea{ max-width: 680px; }
 }

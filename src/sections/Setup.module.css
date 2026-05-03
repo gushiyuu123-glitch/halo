@@ -228,7 +228,6 @@
 
 /* ===== Content（右へミラー） ===== */
 .contentArea{
-  /* Conceptの 2/7 を右へ鏡像（1列分の余白も揃える） */
   grid-column: 7 / 12;
   position:relative;
   max-width:560px;
@@ -294,7 +293,6 @@
   flex-direction:column;
   gap: clamp(10px, 1.2vw, 16px);
 
-  /* ✅ Zen Old Mincho */
   font-family: var(--ff-serif, "Zen Old Mincho", "Noto Serif JP", serif);
   font-weight:500;
   color: rgba(243,239,230,0.96);
@@ -344,7 +342,7 @@
   border-top: 1px solid rgba(243,239,230,0.12);
   border-bottom: 1px solid rgba(243,239,230,0.10);
 
-  opacity: 0; /* ✅ gsapで出す前提 */
+  opacity: 0; /* gsap */
   will-change: opacity, transform;
 }
 
@@ -396,7 +394,7 @@
   );
 }
 
-/* ===== Responsive（Conceptと同じ崩し方） ===== */
+/* ===== Responsive（SP主軸で調整） ===== */
 @media (max-width: 1080px){
   .setup{
     min-height:auto;
@@ -455,6 +453,49 @@
     margin-right: -18px;
     transform: translate3d(0, 12px, 0);
   }
+
+  /* ✅ SP密度調整 */
+  .number{
+    margin-bottom: 18px;
+    font-size: 10px;
+  }
+
+  .titleSub{
+    font-size: 18px;
+  }
+
+  .titleMainLine{
+    font-size: clamp(30px, 9.6vw, 48px);
+    line-height: 1.16;
+    letter-spacing: -0.018em;
+    padding-left: 0;
+  }
+
+  .lead{
+    margin-top: 22px;
+    font-size: 13.5px;
+    line-height: 2.0;
+    letter-spacing: 0.02em;
+  }
+
+  .steps{
+    margin-top: 18px;
+  }
+
+  .step{
+    padding: 12px 0;
+    gap: 12px;
+  }
+
+  .stepNo{
+    font-size: 10px;
+    transform: translateY(-1px);
+  }
+
+  .stepText{
+    font-size: 15px;
+    line-height: 1.58;
+  }
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -463,4 +504,38 @@
     transform:none;
     filter:none;
   }
+}
+/* =========================
+   SETUP PC readability boost
+   ========================= */
+@media (min-width: 960px){
+  /* 本文を“読む強さ”に戻す */
+  .lead{
+    font-size: 18px;
+    line-height: 2.05;
+    letter-spacing: 0.016em;
+  }
+
+  /* ステップもPCで一段上げる */
+  .stepText{
+    font-size: 17px;
+    line-height: 1.62;
+  }
+  .stepNo{
+    font-size: 12px;
+  }
+
+  /* 詰まり回避：テキスト側の器を少し広げる */
+  .contentArea{
+    max-width: 640px;
+  }
+
+  /* 見出し周り（微調整） */
+  .kicker{ font-size: 13px; }
+  .number{ font-size: 14px; }
+}
+
+@media (min-width: 1280px){
+  .lead{ font-size: 18.5px; }
+  .contentArea{ max-width: 680px; }
 }

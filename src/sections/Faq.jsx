@@ -7,11 +7,11 @@ const FAQS = [
     q: "壁が白くなくても大丈夫？",
     a: (
       <>
-        大丈夫です。HALOは「完璧な白壁」を前提にしません。
+        大丈夫です。白壁が必須ではありません。
         <br />
-        まずは明るすぎない壁やカーテンなど、落ち着いた面に合わせるのがおすすめです。
+        まずは「明るすぎない面」に合わせるのがおすすめです。
         <br />
-        夜は灯りを少し落とすだけで、見え方が一段整います。
+        夜は照明を少し落とすだけで、コントラストが出ます。
       </>
     ),
   },
@@ -19,9 +19,9 @@ const FAQS = [
     q: "距離が取れない部屋でも映る？",
     a: (
       <>
-        映せます。無理に大画面を狙わず、部屋のサイズに合う“ちょうどいい大きさ”にするのがコツ。
+        映せます。無理に大画面を狙わず、距離に合うサイズにするのがコツ。
         <br />
-        小さめでも、像が整っている方が映画っぽく感じます。
+        小さめでも、輪郭が出るほうが“映画っぽく”感じます。
       </>
     ),
   },
@@ -29,9 +29,9 @@ const FAQS = [
     q: "昼間でも使える？（夜向け？）",
     a: (
       <>
-        使えます。ただ、HALOがいちばん綺麗に見えるのは夜です。
+        使えます。ただ、見え方が出やすいのは夜です。
         <br />
-        昼は遮光カーテンや照明を抑えるだけで、体験がぐっと近づきます。
+        昼は遮光カーテンや照明を弱めるだけで、かなり近づきます。
       </>
     ),
   },
@@ -39,9 +39,9 @@ const FAQS = [
     q: "動作音は気になる？",
     a: (
       <>
-        静かな夜でも“邪魔になりにくい”設計を想定しています。
+        鑑賞の邪魔になりにくいよう配慮しています。
         <br />
-        音が主張しないように、使い方そのものもシンプルに整えています。
+        気になる場合は、本体を少し離す／背面に置くと体感が変わります。
       </>
     ),
   },
@@ -49,9 +49,9 @@ const FAQS = [
     q: "音は外に漏れない？",
     a: (
       <>
-        音量次第です。夜は「大きくする」より「整える」方向が相性いい。
+        音量次第です。夜は「大音量」より「低めで輪郭が出る設定」が向きます。
         <br />
-        低めの音量でも、雰囲気は十分に作れます。
+        心配なときは、外部スピーカーやイヤホン側で調整するのが確実です。
       </>
     ),
   },
@@ -61,7 +61,7 @@ const FAQS = [
       <>
         置く、つなぐ、灯りを落とす。
         <br />
-        その手順だけで“上映に入れる”ように、余計な手間を増やさない前提で作っています。
+        基本はその手順だけです。余計な手間を増やさない前提で作っています。
       </>
     ),
   },
@@ -69,9 +69,9 @@ const FAQS = [
     q: "映画以外にも使える？",
     a: (
       <>
-        使えます。音楽を流す時間、静かな映像を置く時間、何もしない夜にも。
+        使えます。音楽、環境映像、旅動画、写真、アート。
         <br />
-        「部屋が過ごしたくなる場所になる」ことが、HALOの主役です。
+        “何かを流しておくだけ”でも、部屋の印象が変わります。
       </>
     ),
   },
@@ -86,7 +86,7 @@ export default function Faq() {
 
       start: "top 82%",
 
-      // 文章章：膜で少しだけ整える（強すぎ禁止）
+      // 文章章：膜は薄く（強すぎ禁止）
       veilFrom: 0.22,
       veilTo: 0.10,
       veilDur: 1.05,
@@ -99,8 +99,9 @@ export default function Faq() {
     }),
     []
   );
-// 変更前：useState(0)
-const [openIndex, setOpenIndex] = useState(-1); // ✅ 初期は全部閉じ
+
+  // ✅ 初期は全部閉じ
+  const [openIndex, setOpenIndex] = useState(-1);
 
   const toggle = useCallback((i) => {
     setOpenIndex((prev) => (prev === i ? -1 : i));
@@ -138,38 +139,45 @@ const [openIndex, setOpenIndex] = useState(-1); // ✅ 初期は全部閉じ
         <div className={styles.body}>
           <h2 className={styles.title} data-sankou="title">
             <span className={styles.titleSub}>よくあること。</span>
-            <span className={styles.titleMainLine}>迷いを残さないために。</span>
+            <span className={styles.titleMainLine}>買う前に引っかかる点。</span>
           </h2>
 
           <p className={styles.lead} data-sankou="copy">
-            買う直前に浮かびやすい不安だけを、短くまとめました。
+            迷いやすいところだけ、短くまとめました。
             <br />
-            “整う夜”が崩れないように、答えも静かに置いています。
+            判断に必要な情報だけ置いています。
           </p>
 
           <div className={styles.list} data-sankou="meta" aria-label="FAQ list">
             {FAQS.map((item, i) => {
               const open = i === openIndex;
               const panelId = `faq-panel-${i}`;
+              const qId = `faq-q-${i}`;
+
               return (
                 <div
                   key={item.q}
                   className={`${styles.item} ${open ? styles.itemOpen : ""}`}
                 >
                   <button
+                    id={qId}
                     type="button"
                     className={styles.qBtn}
                     onClick={() => toggle(i)}
                     aria-expanded={open}
                     aria-controls={panelId}
                   >
-                    <span className={styles.qNo}>{String(i + 1).padStart(2, "0")}</span>
+                    <span className={styles.qNo}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     <span className={styles.qText}>{item.q}</span>
                     <span className={styles.glyph} aria-hidden="true" />
                   </button>
 
                   <div
                     id={panelId}
+                    role="region"
+                    aria-labelledby={qId}
                     className={styles.answerWrap}
                     aria-hidden={!open}
                   >
@@ -183,7 +191,7 @@ const [openIndex, setOpenIndex] = useState(-1); // ✅ 初期は全部閉じ
           </div>
 
           <p className={styles.note} data-sankou="meta">
-            ここで迷いが消えたら、次は「迎える」だけです。
+            ここで迷いが消えたら、あとは選ぶだけです。
           </p>
         </div>
       </div>

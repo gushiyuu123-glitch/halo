@@ -4,7 +4,6 @@
   isolation: isolate;
   color: #f4efe5;
 
-  /* ✅ 最下部固定リンク分の“逃げ”を足す */
   padding:
     clamp(92px, 10vw, 154px)
     clamp(20px, 5vw, 84px)
@@ -18,7 +17,6 @@
   margin-top: -1px;
 }
 
-/* ✅ “影”はフッター全域に敷く（切れ目が出ない） */
 .footer::before{
   content:"";
   position:absolute;
@@ -45,7 +43,6 @@
       rgba(0,0,0,0.14));
 }
 
-/* グレインは薄く */
 .footer::after{
   content:"";
   position:absolute;
@@ -60,7 +57,6 @@
   mask-image: linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%);
 }
 
-/* 背景文字：完全に背景化 */
 .bgWord{
   position:absolute;
   left:50%;
@@ -106,12 +102,10 @@
   50%{ background-position:100% 50%; }
   100%{ background-position:0% 50%; }
 }
-
 @media (prefers-reduced-motion: reduce){
   .bgWord{ animation:none; opacity:0.008; }
 }
 
-/* Sankouのveil（薄く） */
 .veil{
   position:absolute;
   inset:0;
@@ -126,7 +120,6 @@
   will-change: opacity;
 }
 
-/* inner（枠内UI用） */
 .inner{
   position: relative;
   z-index: 3;
@@ -174,10 +167,6 @@
   background: linear-gradient(90deg, rgba(244,239,229,0.14), rgba(244,239,229,0.03));
 }
 
-/* ===================================================
-   ✅ 迫力の本体：横幅制限を外す（100vw）
-   影はfooter全体に敷いてるので切れ目が出ない
-   =================================================== */
 .creditsStage{
   position: relative;
   z-index: 3;
@@ -190,20 +179,16 @@
   margin-top: clamp(14px, 2vw, 24px);
 
   overflow: hidden;
-
-  /* 余計な“線”は出さない */
   border: none;
 
   background:
     radial-gradient(960px 520px at 50% 28%, rgba(243,239,230,0.020), transparent 70%),
     linear-gradient(180deg, rgba(255,255,255,0.006), rgba(0,0,0,0.10) 18%, rgba(0,0,0,0.30) 100%);
 
-  /* 上下はマスクで自然に消す（黒帯ゼロ） */
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 14%, black 86%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0%, black 14%, black 86%, transparent 100%);
 }
 
-/* Roll */
 .creditsRoll{
   position:absolute;
   left:0;
@@ -224,7 +209,6 @@
   100%{ transform: translate3d(0, -240%, 0); }
 }
 
-/* ✅ 文字の迫力：本文幅も広げる */
 .rollBlock{
   width: min(1180px, calc(100% - 2 * clamp(18px, 4vw, 72px)));
   text-align:center;
@@ -259,7 +243,6 @@
   gap: clamp(14px, 1.8vw, 18px);
 }
 
-/* 役職→名前を“映画寄り”2カラム */
 .creditRow{
   display:grid;
   grid-template-columns: 160px minmax(0, 1fr);
@@ -298,7 +281,6 @@
   color: rgba(244,239,229,0.34);
 }
 
-/* 下部 */
 .toTop{
   display:inline-block;
   margin-top: clamp(22px, 2.6vw, 30px);
@@ -311,7 +293,6 @@
   box-shadow: inset 0 0 0 1px rgba(244,239,229,0.12);
   background: rgba(255,255,255,0.018);
 }
-
 .toTop:hover{
   color: rgba(244,239,229,0.80);
   box-shadow: inset 0 0 0 1px rgba(244,239,229,0.18);
@@ -341,7 +322,6 @@
   letter-spacing:0.12em;
   color: rgba(244,239,229,0.52);
 }
-
 .miniLink:hover{ color: rgba(244,239,229,0.82); }
 
 .sep{
@@ -360,9 +340,7 @@
   white-space:nowrap;
 }
 
-/* ===================================================
-   ✅ お前のリンク：フッター最下部に固定（エンドロールとは別）
-   =================================================== */
+/* creator links */
 .creatorFixed{
   position: absolute;
   left: 0;
@@ -391,7 +369,6 @@
   box-shadow: inset 0 0 0 1px rgba(244,239,229,0.10);
   background: rgba(255,255,255,0.016);
 }
-
 .creatorLink:hover{
   color: rgba(244,239,229,0.90);
   box-shadow: inset 0 0 0 1px rgba(244,239,229,0.16);
@@ -415,7 +392,6 @@
   }
 }
 
-/* responsive */
 @media (max-width: 900px){
   .statement{ font-size: clamp(24px, 5.2vw, 40px); }
   .creditRow{ grid-template-columns: 140px minmax(0, 1fr); }
@@ -451,12 +427,13 @@
     gap: 8px;
   }
 }
+
 /* ✅ 初期は止める（Footerに入ったら再生） */
-.creditsRoll {
+.creditsRoll{
   animation-play-state: paused;
 }
 
 /* ✅ Footerに入ったら走る */
-.isPlay .creditsRoll {
+.isPlay .creditsRoll{
   animation-play-state: running;
 }

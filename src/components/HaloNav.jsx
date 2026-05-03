@@ -73,16 +73,26 @@ export default function HaloNav({ ready = false }) {
     () => [
       { no: "01", en: "Tonight", jp: "はじまり", target: "top" },
       { no: "02", en: "Mood", jp: "世界観", target: "concept" },
-      { no: "03", en: "Easy", jp: "すぐ始まる", target: "setup" },
+
+      // 雰囲気語は残しつつ、補助ラベル（a11y/tooltip）だけ足す
+      { no: "03", en: "Easy", jp: "すぐ始まる", target: "setup", hint: "Setup" },
+
       { no: "04", en: "Product", jp: "製品", target: "product" },
       { no: "05", en: "Scene", jp: "夜の過ごし方", target: "scenes" },
-      { no: "06", en: "Detail", jp: "精度と静けさ", target: "spec" },
+
+      { no: "06", en: "Detail", jp: "精度と静けさ", target: "spec", hint: "Spec" },
+
       { no: "07", en: "FAQ", jp: "よくあること", target: "faq" },
-{ no: "08", en: "Lineup", jp: "選ぶ", target: "lineup" },
-{ no: "09", en: "Contact", jp: "相談", target: "contact" },
+      { no: "08", en: "Lineup", jp: "選ぶ", target: "lineup" },
+      { no: "09", en: "Contact", jp: "相談", target: "contact" },
     ],
     []
   );
+
+  const buildLabel = (item) => {
+    const hint = item.hint ? ` (${item.hint})` : "";
+    return `${item.no} ${item.en}${hint} / ${item.jp}`;
+  };
 
   // dock 判定：Hero末尾 sentinel
   useEffect(() => {
@@ -192,6 +202,8 @@ export default function HaloNav({ ready = false }) {
     <div className={styles.items}>
       {NAV.map((item) => {
         const isActive = active === item.target;
+        const label = buildLabel(item);
+
         return (
           <button
             key={item.no}
@@ -199,6 +211,8 @@ export default function HaloNav({ ready = false }) {
             className={`${styles.item} ${isActive ? styles.itemActive : ""}`}
             onClick={() => go(item.target)}
             aria-current={isActive ? "page" : undefined}
+            aria-label={label}
+            title={label}
           >
             <span className={styles.scan} aria-hidden="true" />
             <span className={styles.no}>{item.no}</span>
@@ -268,7 +282,7 @@ export default function HaloNav({ ready = false }) {
             <span className={styles.miniNow}>{activeLabel}</span>
           </div>
 
-          {/* ✅ CART（ここに寄せて距離問題を消す） */}
+          {/* ✅ CART */}
           <button
             type="button"
             className={styles.cartBtn}
@@ -339,12 +353,16 @@ export default function HaloNav({ ready = false }) {
         <div className={styles.panelItems}>
           {NAV.map((item) => {
             const isActive = active === item.target;
+            const label = buildLabel(item);
+
             return (
               <button
                 key={item.no}
                 type="button"
                 className={`${styles.panelItem} ${isActive ? styles.panelItemActive : ""}`}
                 onClick={() => go(item.target)}
+                aria-label={label}
+                title={label}
               >
                 <span className={styles.panelNo}>{item.no}</span>
                 <span className={styles.panelTexts}>
@@ -355,8 +373,6 @@ export default function HaloNav({ ready = false }) {
             );
           })}
         </div>
-
-        {/* ✅ panelBuyは削除（BUY二重問題の根） */}
       </div>
     </>
   );
