@@ -21,10 +21,10 @@
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0b0b0a" />
 
-    <!-- Canonical (✅ デプロイ後に必ず置換) -->
-    <link rel="canonical" href="__SITE_URL__/" />
+    <!-- Canonical -->
+    <link rel="canonical" href="https://halo-one-iota.vercel.app/" />
 
-    <!-- Open Graph (✅ __SITE_URL__ と画像パスはデプロイ後に置換推奨) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="HALO" />
     <meta property="og:locale" content="ja_JP" />
@@ -33,8 +33,11 @@
       property="og:description"
       content="灯りを落とすだけで、部屋がスクリーンになる。HALOは夜の空気を壊さず、像が整って立ち上がる体験を目指しました。"
     />
-    <meta property="og:url" content="__SITE_URL__/" />
-    <meta property="og:image" content="__SITE_URL__/og/halo-og.jpg" />
+    <meta property="og:url" content="https://halo-one-iota.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://halo-one-iota.vercel.app/og/halo-og.png"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="HALO｜いつもの夜が、スクリーンになる。" />
@@ -46,9 +49,12 @@
       name="twitter:description"
       content="灯りを落とすだけで、部屋がスクリーンになる。夜の空気を壊さない“整う体験”へ。"
     />
-    <meta name="twitter:image" content="__SITE_URL__/og/halo-og.jpg" />
+    <meta
+      name="twitter:image"
+      content="https://halo-one-iota.vercel.app/og/halo-og.png"
+    />
 
-    <!-- Icons / PWA (✅ public に配置) -->
+    <!-- Icons / PWA（public に配置） -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -64,19 +70,19 @@
       rel="stylesheet"
     />
 
-    <!-- JSON-LD (✅ __SITE_URL__ はデプロイ後に置換) -->
+    <!-- JSON-LD -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
           {
             "@type": "Organization",
-            "@id": "__SITE_URL__/#organization",
+            "@id": "https://halo-one-iota.vercel.app/#organization",
             "name": "HALO",
-            "url": "__SITE_URL__/",
+            "url": "https://halo-one-iota.vercel.app/",
             "logo": {
               "@type": "ImageObject",
-              "url": "__SITE_URL__/og/halo-og.jpg"
+              "url": "https://halo-one-iota.vercel.app/og/halo-og.png"
             },
             "sameAs": [
               "https://gushikendesign.com/",
@@ -85,30 +91,30 @@
           },
           {
             "@type": "WebSite",
-            "@id": "__SITE_URL__/#website",
-            "url": "__SITE_URL__/",
+            "@id": "https://halo-one-iota.vercel.app/#website",
+            "url": "https://halo-one-iota.vercel.app/",
             "name": "HALO",
             "inLanguage": "ja-JP",
-            "publisher": { "@id": "__SITE_URL__/#organization" }
+            "publisher": { "@id": "https://halo-one-iota.vercel.app/#organization" }
           },
           {
             "@type": "WebPage",
-            "@id": "__SITE_URL__/#webpage",
-            "url": "__SITE_URL__/",
+            "@id": "https://halo-one-iota.vercel.app/#webpage",
+            "url": "https://halo-one-iota.vercel.app/",
             "name": "HALO｜いつもの夜が、スクリーンになる。",
             "description": "HALOは、映像だけを大きくするための道具ではありません。部屋の明るさ、壁の質感、時間の流れまで含めて、いつもの夜を少しだけ特別なものへ整えていきます。",
             "inLanguage": "ja-JP",
-            "isPartOf": { "@id": "__SITE_URL__/#website" },
-            "about": { "@id": "__SITE_URL__/#organization" }
+            "isPartOf": { "@id": "https://halo-one-iota.vercel.app/#website" },
+            "about": { "@id": "https://halo-one-iota.vercel.app/#organization" }
           },
           {
             "@type": "Product",
-            "@id": "__SITE_URL__/#product",
+            "@id": "https://halo-one-iota.vercel.app/#product",
             "name": "HALO",
             "description": "灯りを落とすだけで、部屋がスクリーンになる。夜の空気を壊さない設計で、像が整って立ち上がる体験を目指したホームプロジェクター。",
             "brand": { "@type": "Brand", "name": "HALO" },
-            "image": ["__SITE_URL__/og/halo-og.jpg"],
-            "url": "__SITE_URL__/",
+            "image": ["https://halo-one-iota.vercel.app/og/halo-og.png"],
+            "url": "https://halo-one-iota.vercel.app/",
             "category": "Home Projector"
           }
         ]
