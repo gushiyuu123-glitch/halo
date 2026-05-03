@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Zen+Old+Mincho:wght@400;500;600&family=Noto+Serif+JP:wght@300;400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   Base
+   - HALO foundation
+   - dark luxury / BUT sellable
+   - add studio-light veil
+   ========================= */
+
+@layer base {
+  :root {
+    /* ✅ フォントをHALO仕様に統一（ここが本命） */
+    --ff-sans:
+      "Inter",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+
+    --ff-serif:
+      "Zen Old Mincho",
+      "Noto Serif JP",
+      serif;
+
+    /* 基本はUIが読みやすい sans をデフォルトに */
+    font-family: var(--ff-sans);
+
+    /* ✅ 少しだけ持ち上げる（暗すぎ防止） */
+    --halo-bg: #0b0b0a;
+    --halo-ink: #f3efe6;
+    --halo-muted: rgba(243, 239, 230, 0.66);
+    --halo-faint: rgba(243, 239, 230, 0.40);
+    --halo-line: rgba(243, 239, 230, 0.14);
+
+    --focus-ring: rgba(243, 239, 230, 0.72);
+    --selection-bg: rgba(243, 239, 230, 0.20);
+
+    color: var(--halo-ink);
+    background: var(--halo-bg);
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: auto;
+    -webkit-text-size-adjust: 100%;
+    background: var(--halo-bg);
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+
+    color: var(--halo-ink);
+
+    background:
+      radial-gradient(circle at 50% 0%,
+        rgba(243,239,230,0.085), transparent 36rem),
+      radial-gradient(circle at 86% 18%,
+        rgba(151,126,83,0.085), transparent 34rem),
+      radial-gradient(circle at 46% 46%,
+        rgba(243,239,230,0.045), transparent 42rem),
+      var(--halo-bg);
+
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+
+  #root {
+    min-height: inherit;
+    isolation: isolate;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  img,
+  video {
+    height: auto;
+  }
+
+  svg {
+    fill: currentColor;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  button {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--selection-bg);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--focus-ring);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

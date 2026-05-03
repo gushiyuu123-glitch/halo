@@ -1,0 +1,645 @@
+/* src/sections/Hero.module.css */
+
+.hero {
+  /* ✅ base のトーンに合わせて少し持ち上げ */
+  --night: 11, 11, 10;
+  --ivory: 243, 239, 230;
+  --gold: 151, 126, 83;
+
+  --ease-out: cubic-bezier(0.22, 0.1, 0.28, 1);
+  --ease-deep: cubic-bezier(0.16, 0.74, 0.18, 1);
+  --ease-cinema: cubic-bezier(0.18, 0.62, 0.2, 1);
+
+  --delay-image: 90ms;
+  --delay-light: 420ms;
+  --delay-wordmark: 760ms;
+  --delay-copy: 1360ms;
+
+  --dur-image: 1780ms;
+  --dur-light: 1900ms;
+  --dur-mark: 1180ms;
+  --dur-copy: 1120ms;
+
+  --stagger: 94ms;
+
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  isolation: isolate;
+  background: rgb(var(--night));
+  color: rgb(var(--ivory));
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  opacity: 0;
+  transform: scale(1.035);
+  filter:
+    brightness(0.60)
+    contrast(0.94)
+    saturate(0.76);
+
+  backface-visibility: hidden;
+  transform-origin: 50% 48%;
+  will-change: opacity, transform, filter;
+}
+
+.isOn .image {
+  animation: haloImageIn var(--dur-image) var(--ease-deep) var(--delay-image) both;
+}
+
+@keyframes haloImageIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.055);
+    filter:
+      brightness(0.44)
+      contrast(0.88)
+      saturate(0.56);
+  }
+
+  48% {
+    opacity: 0.74;
+    transform: scale(1.025);
+    filter:
+      brightness(0.62)
+      contrast(0.94)
+      saturate(0.72);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.006);
+    filter:
+      brightness(0.74)
+      contrast(0.98)
+      saturate(0.86);
+  }
+}
+
+/* 全体の夜を締める */
+.baseTone {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(var(--night), 0.04) 0%,
+      rgba(var(--night), 0.10) 38%,
+      rgba(var(--night), 0.30) 74%,
+      rgba(var(--night), 0.66) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(var(--night), 0.34) 0%,
+      rgba(var(--night), 0.08) 34%,
+      rgba(var(--night), 0.04) 58%,
+      rgba(var(--night), 0.26) 100%
+    );
+}
+
+/* 投影された光の膜（霧っぽさ抑え） */
+.projectorWash {
+  position: absolute;
+  inset: -8%;
+  z-index: 3;
+  pointer-events: none;
+
+  opacity: 0;
+  transform: translate3d(0, 10px, 0) scale(1.015);
+  filter: blur(0.2px);
+
+  background:
+    radial-gradient(
+      920px 560px at 62% 42%,
+      rgba(var(--ivory), 0.16),
+      rgba(var(--ivory), 0.048) 34%,
+      rgba(var(--ivory), 0) 66%
+    ),
+    conic-gradient(
+      from 214deg at 64% 44%,
+      rgba(var(--ivory), 0),
+      rgba(var(--ivory), 0.034),
+      rgba(var(--ivory), 0.010),
+      rgba(var(--ivory), 0) 43%
+    );
+  mix-blend-mode: screen;
+  will-change: opacity, transform, filter;
+}
+
+.isOn .projectorWash {
+  animation: projectorWashIn var(--dur-light) var(--ease-out) var(--delay-light) both;
+}
+
+@keyframes projectorWashIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(1.04);
+    filter: blur(0.26px);
+  }
+
+  54% {
+    opacity: 0.26;
+    transform: translate3d(0, 4px, 0) scale(1.018);
+    filter: blur(0.10px);
+  }
+
+  100% {
+    opacity: 0.16;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ロゴ周辺だけ、ほんの少し明るくする芯 */
+.projectorCore {
+  position: absolute;
+  left: 50%;
+  top: 37%;
+  z-index: 4;
+  width: min(72vw, 980px);
+  height: min(34vw, 420px);
+  transform: translate(-50%, -50%);
+
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      closest-side,
+      rgba(var(--ivory), 0.10),
+      rgba(var(--ivory), 0.030) 48%,
+      rgba(var(--ivory), 0) 78%
+    );
+  mix-blend-mode: screen;
+  filter: blur(0.28px);
+  will-change: opacity, transform;
+}
+
+.isOn .projectorCore {
+  animation: projectorCoreIn 1800ms var(--ease-out) 640ms both;
+}
+
+@keyframes projectorCoreIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+
+  100% {
+    opacity: 0.26;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* スクリーンっぽい薄い膜（✅ keyframes修正） */
+.screenVeil {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+
+  opacity: 0;
+  background:
+    linear-gradient(
+      115deg,
+      rgba(var(--ivory), 0) 0%,
+      rgba(var(--ivory), 0.018) 42%,
+      rgba(var(--ivory), 0.008) 53%,
+      rgba(var(--ivory), 0) 68%
+    );
+  mix-blend-mode: soft-light;
+  will-change: opacity, transform;
+}
+
+.isOn .screenVeil {
+  animation: screenVeilIn 2200ms var(--ease-out) 520ms both;
+}
+
+@keyframes screenVeilIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(-2%, 0, 0);
+  }
+  100% {
+    opacity: 0.30;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.leftVeil {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  z-index: 6;
+  width: 40%;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(var(--night), 0.46),
+      rgba(var(--night), 0.16) 42%,
+      rgba(var(--night), 0) 100%
+    );
+}
+
+.bottomShade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 7;
+  height: 42%;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(var(--night), 0) 0%,
+      rgba(var(--night), 0.26) 48%,
+      rgba(var(--night), 0.78) 100%
+    );
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(
+      closest-side at 52% 48%,
+      rgba(0, 0, 0, 0) 58%,
+      rgba(0, 0, 0, 0.22) 86%,
+      rgba(0, 0, 0, 0.54) 100%
+    );
+  will-change: opacity;
+}
+
+.isOn .vignette {
+  animation: vignetteIn 1900ms var(--ease-out) 360ms both;
+}
+
+@keyframes vignetteIn {
+  0% { opacity: 0; }
+  100% { opacity: 0.74; }
+}
+
+/* 湿度（やりすぎない） */
+.filmSoftness {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  pointer-events: none;
+
+  opacity: 0.09;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(var(--ivory), 0.010) 0px,
+      rgba(var(--ivory), 0.010) 1px,
+      rgba(var(--night), 0) 3px,
+      rgba(var(--night), 0) 7px
+    );
+  mix-blend-mode: soft-light;
+  mask-image: linear-gradient(to bottom, black 0%, black 64%, transparent 100%);
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    linear-gradient(rgba(var(--ivory), 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--ivory), 0.022) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.6) 48%, transparent 82%);
+  mix-blend-mode: soft-light;
+  will-change: opacity;
+}
+
+.isOn .grain {
+  animation: grainIn 1500ms ease 620ms both;
+}
+
+@keyframes grainIn {
+  0% { opacity: 0; }
+  100% { opacity: 0.045; }
+}
+
+/* cinematic shutter */
+.shutterTop,
+.shutterBot {
+  position: absolute;
+  inset-inline: 0;
+  z-index: 30;
+  height: 18%;
+  pointer-events: none;
+  background: rgb(var(--night));
+  will-change: transform, opacity;
+}
+
+.shutterTop { top: 0; }
+.shutterBot { bottom: 0; }
+
+.isOn .shutterTop {
+  animation: shutterTopOpen 1320ms var(--ease-cinema) 120ms both;
+}
+.isOn .shutterBot {
+  animation: shutterBottomOpen 1320ms var(--ease-cinema) 120ms both;
+}
+
+@keyframes shutterTopOpen {
+  0% { transform: translate3d(0, 0, 0); opacity: 1; }
+  100% { transform: translate3d(0, -102%, 0); opacity: 0.82; }
+}
+@keyframes shutterBottomOpen {
+  0% { transform: translate3d(0, 0, 0); opacity: 1; }
+  100% { transform: translate3d(0, 102%, 0); opacity: 0.82; }
+}
+
+/* wordmark */
+.wordmarkWrap {
+  position: absolute;
+  left: 50%;
+  top: 37%;
+  z-index: 20;
+  width: min(82vw, 1120px);
+  transform: translate3d(-50%, -50%, 0);
+  pointer-events: none;
+  text-align: center;
+}
+
+.wordmarkRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2.35vw, 44px);
+}
+
+.wordmarkChar {
+  display: block;
+  opacity: 0;
+  transform: translate3d(0, 16px, 0) scale(0.997);
+  filter: blur(0.1px);
+
+  -webkit-mask-image: linear-gradient(#000, #000);
+  mask-image: linear-gradient(#000, #000);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  -webkit-mask-size: 0% 100%;
+  mask-size: 0% 100%;
+
+  backface-visibility: hidden;
+  will-change: opacity, transform, filter, -webkit-mask-size, mask-size;
+}
+
+.wordmarkSvg {
+  display: block;
+  width: auto;
+  height: clamp(92px, 10.4vw, 188px);
+
+  opacity: 0.78;
+
+  filter:
+    invert(1)
+    sepia(0.22)
+    saturate(0.78)
+    brightness(1.01)
+    contrast(0.92)
+    drop-shadow(0 14px 38px rgba(0, 0, 0, 0.18))
+    drop-shadow(0 0 20px rgba(var(--ivory), 0.11));
+
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.isOn .wordmarkChar {
+  animation:
+    haloMarkReveal var(--dur-mark) var(--ease-cinema) both,
+    haloMarkWipe var(--dur-mark) var(--ease-cinema) both;
+  animation-delay:
+    calc(var(--delay-wordmark) + (var(--i) * var(--stagger))),
+    calc(var(--delay-wordmark) + (var(--i) * var(--stagger)));
+}
+
+@keyframes haloMarkWipe {
+  0% { -webkit-mask-size: 0% 100%; mask-size: 0% 100%; }
+  100% { -webkit-mask-size: 118% 100%; mask-size: 118% 100%; }
+}
+
+@keyframes haloMarkReveal {
+  0% { opacity: 0; transform: translate3d(0, 18px, 0) scale(0.996); filter: blur(0.14px); }
+  58% { opacity: 0.7; transform: translate3d(0, 6px, 0) scale(0.999); filter: blur(0.04px); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+}
+
+/* ✅ copy font を Zen Old Mincho に統一 */
+.copy {
+  margin-top: clamp(34px, 3.6vw, 48px);
+
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.995);
+
+  color: rgba(var(--ivory), 0.88);
+  font-family: var(--ff-serif, "Zen Old Mincho", "Noto Serif JP", serif);
+  font-size: clamp(17px, 1.48vw, 22px);
+  font-weight: 400;
+  letter-spacing: 0.11em;
+  line-height: 1.42;
+
+  text-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.34),
+    0 0 22px rgba(var(--ivory), 0.08);
+
+  backface-visibility: hidden;
+  will-change: opacity, transform;
+}
+
+/* ✅ subCopy は Inter に寄せる */
+.subCopy {
+  margin-top: clamp(13px, 1.25vw, 18px);
+
+  opacity: 0;
+  transform: translate3d(0, 14px, 0) scale(0.997);
+
+  color: rgba(var(--ivory), 0.64);
+  font-family: var(--ff-sans, "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  line-height: 1.4;
+
+  text-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+
+  backface-visibility: hidden;
+  will-change: opacity, transform;
+}
+
+.isOn .copy {
+  animation: haloCopyIn var(--dur-copy) var(--ease-out) var(--delay-copy) both;
+}
+
+.isOn .subCopy {
+  animation: haloCopyIn 1040ms var(--ease-out) calc(var(--delay-copy) + 230ms) both;
+}
+
+@keyframes haloCopyIn {
+  0% { opacity: 0; transform: translate3d(0, 20px, 0) scale(0.995); }
+  58% { opacity: 0.66; transform: translate3d(0, 7px, 0) scale(0.998); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.sentinel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* mask fallback */
+@supports not (mask-image: linear-gradient(#000, #000)) {
+  .wordmarkChar {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .isOn .wordmarkChar {
+    animation:
+      haloMarkReveal var(--dur-mark) var(--ease-cinema) both,
+      haloMarkClip var(--dur-mark) var(--ease-cinema) both;
+    animation-delay:
+      calc(var(--delay-wordmark) + (var(--i) * var(--stagger))),
+      calc(var(--delay-wordmark) + (var(--i) * var(--stagger)));
+  }
+
+  @keyframes haloMarkClip {
+    0% { clip-path: inset(0 100% 0 0); }
+    100% { clip-path: inset(0 0 0 0); }
+  }
+}
+
+/* tablet */
+@media (max-width: 1024px) {
+  .hero { min-height: 620px; }
+
+  .wordmarkWrap {
+    top: 38%;
+    width: min(88vw, 900px);
+  }
+
+  .wordmarkRow { gap: clamp(10px, 2.2vw, 28px); }
+
+  .wordmarkSvg { height: clamp(78px, 12.6vw, 140px); }
+
+  .copy { margin-top: 34px; font-size: clamp(16px, 2.1vw, 20px); }
+  .subCopy { font-size: 12px; }
+}
+
+/* mobile safety */
+@media (max-width: 767px) {
+  .hero { min-height: 100svh; }
+
+  .image { object-position: 50% 50%; }
+  .leftVeil { width: 58%; }
+
+  .wordmarkWrap {
+    top: 39%;
+    width: 92vw;
+  }
+
+  .wordmarkRow { gap: clamp(7px, 2.2vw, 14px); }
+  .wordmarkSvg { height: clamp(54px, 17vw, 78px); }
+
+  .copy {
+    margin-top: 28px;
+    font-size: clamp(14px, 4.1vw, 17px);
+    letter-spacing: 0.10em;
+  }
+
+  .subCopy {
+    margin-top: 12px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+
+  .grain {
+    opacity: 0.028;
+    background-size: 56px 56px;
+  }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .projectorWash,
+  .projectorCore,
+  .screenVeil,
+  .vignette,
+  .grain,
+  .shutterTop,
+  .shutterBot,
+  .wordmarkChar,
+  .copy,
+  .subCopy {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .image {
+    opacity: 1;
+    transform: none;
+    filter:
+      brightness(0.74)
+      contrast(0.98)
+      saturate(0.86);
+  }
+
+  .projectorWash { opacity: 0.16; transform: none; filter: blur(0); }
+  .projectorCore { opacity: 0.26; }
+  .screenVeil { opacity: 0.30; transform: none; }
+  .vignette { opacity: 0.74; }
+  .grain { opacity: 0.045; }
+
+  .shutterTop,
+  .shutterBot {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .wordmarkChar {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    -webkit-mask-size: 118% 100%;
+    mask-size: 118% 100%;
+    clip-path: none;
+  }
+
+  .copy,
+  .subCopy {
+    opacity: 1;
+    transform: none;
+  }
+}

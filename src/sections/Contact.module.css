@@ -1,0 +1,453 @@
+/* src/sections/Contact.module.css */
+
+.contact{
+  position: relative;
+  min-height: 100svh;
+
+  padding:
+    clamp(92px, 10vw, 148px)
+    clamp(20px, 5vw, 84px)
+    calc(clamp(120px, 14vw, 220px) + env(safe-area-inset-bottom));
+
+  overflow: hidden;
+  isolation: isolate;
+
+  color: rgba(243,239,230,0.98);
+
+  /* Buyの“少し明るい光膜”を継承（売れるトーン） */
+  background:
+    radial-gradient(circle at 50% 18%, rgba(243,239,230,0.095), transparent 42%),
+    radial-gradient(circle at 86% 22%, rgba(151,126,83,0.095), transparent 44%),
+    radial-gradient(circle at 28% 72%, rgba(243,239,230,0.050), transparent 52%),
+    radial-gradient(circle at 50% 54%, rgba(243,239,230,0.028), transparent 58%),
+    linear-gradient(180deg, #0b0b0a 0%, #0a0a09 60%, #070707 100%);
+
+  margin-top: -1px;
+}
+
+.contact::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.74)),
+    linear-gradient(90deg, rgba(0,0,0,0.22), transparent 44%, rgba(0,0,0,0.18));
+}
+
+.contact::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:0.20;
+
+  background-image:
+    linear-gradient(rgba(255,255,255,0.016) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.010) 1px, transparent 1px);
+  background-size: 92px 92px;
+  mask-image: linear-gradient(90deg, transparent 0%, black 14%, black 82%, transparent 100%);
+}
+
+/* ===== Big word（中央寄せで“背景化”） ===== */
+.bgWord{
+  position:absolute;
+  left: 50%;
+  top: 34%;
+  transform: translate(-50%, -50%);
+
+  z-index: 0;
+  pointer-events:none;
+  margin:0;
+
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+  font-weight:600;
+  line-height:0.84;
+  font-size: clamp(120px, 18vw, 360px);
+  letter-spacing:-0.10em;
+
+  opacity:0.034;
+
+  color:transparent;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.055) 0%,
+    rgba(255,255,255,0.14) 45%,
+    rgba(255,255,255,0.055) 100%
+  );
+  background-size:240% 100%;
+  background-position:0% 50%;
+  -webkit-background-clip:text;
+  background-clip:text;
+
+  text-shadow: 0 0 2px rgba(255,255,255,0.08);
+  will-change: opacity, background-position;
+
+  animation:
+    bgWordShimmer 12s cubic-bezier(0.22, 0.1, 0.28, 1) infinite,
+    bgWordPulse 9.2s ease-in-out infinite;
+}
+
+@keyframes bgWordShimmer{
+  0%{ background-position: 0% 50%; }
+  50%{ background-position: 100% 50%; }
+  100%{ background-position: 0% 50%; }
+}
+@keyframes bgWordPulse{
+  0%,100%{ opacity:0.030; }
+  50%{ opacity:0.052; }
+}
+@media (prefers-reduced-motion: reduce){
+  .bgWord{ animation:none; opacity:0.032; }
+}
+
+/* ===== Veil（Sankouが触る） ===== */
+.veil{
+  position:absolute;
+  inset:0;
+  z-index: 1;
+  pointer-events:none;
+  opacity:0; /* gsap */
+
+  background:
+    radial-gradient(860px 460px at 50% 30%, rgba(248,222,166,0.10), transparent 62%),
+    linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.22) 48%, rgba(0,0,0,0.62) 100%);
+  mix-blend-mode: soft-light;
+  will-change: opacity;
+}
+
+/* ===== Halo “presence”（画像なしの空気） ===== */
+.ghost{
+  position:absolute;
+  left: 50%;
+  bottom: -6%;
+  transform: translateX(-50%);
+  width: min(980px, 92vw);
+  height: clamp(220px, 30vw, 420px);
+  z-index: 1;
+  pointer-events:none;
+
+  background:
+    radial-gradient(closest-side at 50% 40%,
+      rgba(255,238,188,0.115),
+      rgba(255,238,188,0.03) 48%,
+      rgba(0,0,0,0) 74%),
+    radial-gradient(closest-side at 50% 88%,
+      rgba(0,0,0,0.54),
+      rgba(0,0,0,0) 70%),
+    linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.26));
+
+  filter: blur(0.2px);
+  opacity: 0.90;
+}
+
+/* ===== Layout ===== */
+.inner{
+  position: relative;
+  z-index: 2;
+  width: min(980px, calc(100% - 2 * clamp(20px, 5vw, 84px)));
+  margin: 0 auto;
+}
+
+.head{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(26px, 3.4vw, 44px);
+}
+
+.number{
+  margin:0;
+  font-size: clamp(12px, 0.92vw, 14px);
+  letter-spacing:0.24em;
+  line-height:1;
+  color: rgba(243,239,230,0.52);
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+}
+
+.kickerRow{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  min-width: clamp(180px, 24vw, 360px);
+}
+
+.kicker{
+  font-size: clamp(11px, 0.86vw, 13px);
+  letter-spacing:0.26em;
+  line-height:1;
+  color: rgba(243,239,230,0.52);
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+}
+
+.kickerLine{
+  flex:1;
+  height:1px;
+  opacity:0.62;
+  transform: translateY(1px);
+  background: linear-gradient(90deg, rgba(243,239,230,0.20), rgba(243,239,230,0.06));
+}
+
+.center{
+  width: min(860px, 100%);
+  margin: 0 auto;
+  text-align: center;
+  padding-top: clamp(8px, 1vw, 18px);
+}
+
+/* ===== Title ===== */
+.title{
+  margin:0;
+  display:flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vw, 16px);
+
+  font-family: var(--ff-serif, "Zen Old Mincho", "Noto Serif JP", serif);
+  font-weight:500;
+  color: rgba(243,239,230,0.98);
+
+  transform: translate3d(0,0,0);
+}
+
+.titleSub{
+  font-size: clamp(18px, 1.5vw, 24px);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: rgba(243,239,230,0.72);
+}
+
+.titleMainLine{
+  font-size: clamp(34px, 3.8vw, 60px);
+  line-height: 1.10;
+  letter-spacing: -0.02em;
+  color: rgba(243,239,230,0.98);
+  font-feature-settings:"palt" 1;
+
+  text-shadow:
+    0 12px 30px rgba(0,0,0,0.22),
+    0 2px 10px rgba(0,0,0,0.32);
+}
+
+/* ===== Copy ===== */
+.lead{
+  margin-top: clamp(22px, 2.8vw, 34px);
+  color: rgba(243,239,230,0.80);
+
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+  font-size: clamp(14.5px, 1.05vw, 17px);
+  line-height: 2.0;
+  letter-spacing: 0.018em;
+}
+
+/* ===== Form ===== */
+.form{
+  margin: clamp(22px, 3.0vw, 42px) auto 0;
+  width: min(740px, 100%);
+  text-align: left;
+
+  padding: clamp(18px, 2.4vw, 26px);
+  border-radius: 22px;
+
+  background:
+    radial-gradient(120% 140% at 50% -10%,
+      rgba(243,239,230,0.10),
+      rgba(243,239,230,0.04) 55%,
+      rgba(0,0,0,0) 100%),
+    linear-gradient(180deg, rgba(151,126,83,0.08), rgba(0,0,0,0.08));
+
+  box-shadow:
+    0 30px 120px rgba(0,0,0,0.42),
+    inset 0 0 0 1px rgba(243,239,230,0.16),
+    inset 0 1px 0 rgba(243,239,230,0.06);
+}
+
+.row2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.field{ display:flex; flex-direction:column; gap: 8px; }
+
+.label{
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: rgba(243,239,230,0.62);
+}
+
+.input,
+.textarea{
+  width:100%;
+  border-radius: 14px;
+  padding: 12px 14px;
+
+  background: rgba(7,7,7,0.46);
+  border: 1px solid rgba(243,239,230,0.14);
+  color: rgba(243,239,230,0.92);
+
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+
+  outline: none;
+  transition:
+    border-color 520ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    box-shadow 520ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    background 520ms cubic-bezier(0.22, 0.1, 0.28, 1);
+}
+
+.input::placeholder,
+.textarea::placeholder{
+  color: rgba(243,239,230,0.42);
+}
+
+.input:focus,
+.textarea:focus{
+  border-color: rgba(243,239,230,0.28);
+  box-shadow: 0 0 0 4px rgba(243,239,230,0.07);
+  background: rgba(7,7,7,0.58);
+}
+
+.textarea{ resize: vertical; min-height: 132px; }
+
+/* ===== Actions ===== */
+.actions{
+  margin-top: 16px;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  gap: 12px;
+}
+
+.primary{
+  width: min(520px, 100%);
+  padding: 16px 18px;
+  border-radius: 999px;
+
+  background:
+    radial-gradient(120% 140% at 50% -10%,
+      rgba(243,239,230,0.14),
+      rgba(243,239,230,0.06) 52%,
+      rgba(0,0,0,0) 100%),
+    linear-gradient(180deg, rgba(151,126,83,0.12), rgba(151,126,83,0.04));
+  box-shadow:
+    0 28px 100px rgba(0,0,0,0.38),
+    inset 0 0 0 1px rgba(243,239,230,0.18),
+    inset 0 1px 0 rgba(243,239,230,0.06);
+
+  display:flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+
+  border: 0;
+  cursor: not-allowed;
+  opacity: 0.70;
+
+  transition:
+    background 700ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    box-shadow 700ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    transform 420ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    opacity 420ms cubic-bezier(0.22, 0.1, 0.28, 1);
+}
+
+.primaryText{
+  font-family: var(--ff-serif, "Zen Old Mincho", "Noto Serif JP", serif);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  color: rgba(243,239,230,0.96);
+}
+
+.primaryHint{
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: rgba(243,239,230,0.56);
+  transform: translateY(-1px);
+}
+
+.secondary{
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(243,239,230,0.56);
+  padding: 6px 10px;
+  text-align:center;
+}
+
+.secondary:hover{ color: rgba(243,239,230,0.76); }
+
+.note{
+  margin-top: 14px;
+  font-family: var(--ff-sans, "Inter", system-ui, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(243,239,230,0.42);
+  line-height: 1.7;
+  text-align:center;
+}
+
+/* ===== Rail ===== */
+.rail{
+  position:absolute;
+  left: 50%;
+  top: 12%;
+  bottom: 12%;
+  z-index: 1;
+
+  width: 1px;
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(243,239,230,0.12) 18%,
+    rgba(243,239,230,0.05) 66%,
+    transparent
+  );
+}
+
+@media (max-width: 1080px){
+  .contact{
+    min-height: auto;
+    padding:
+      clamp(84px, 14vw, 132px)
+      clamp(20px, 6vw, 56px)
+      calc(clamp(110px, 18vw, 190px) + env(safe-area-inset-bottom));
+  }
+
+  .inner{
+    width: min(920px, calc(100% - 2 * clamp(20px, 6vw, 56px)));
+  }
+
+  .rail{ display:none; }
+}
+
+@media (max-width: 720px){
+  .row2{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px){
+  .contact{
+    padding:
+      clamp(72px, 18vw, 104px)
+      18px
+      calc(clamp(96px, 18vw, 140px) + env(safe-area-inset-bottom));
+  }
+
+  .head{ gap: 14px; }
+  .kickerRow{ min-width: 120px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .bgWord{ animation:none; opacity:0.032; }
+}
