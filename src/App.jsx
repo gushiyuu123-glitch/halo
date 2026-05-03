@@ -42,7 +42,6 @@ function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // ✅ SP判定（幅＋指デバイス）
     const mq = window.matchMedia?.("(max-width: 820px), (pointer: coarse)");
     if (!mq) return;
 
@@ -60,7 +59,7 @@ export default function App() {
   const reduced = useReducedMotion();
   const isMobile = useIsMobile();
 
-  // ✅ ScrollTrigger用：isMobileの最新値をeffect内で参照する（effect再実行を避ける）
+  // ✅ effectを再実行しないため ref 化
   const isMobileRef = useRef(false);
   useEffect(() => {
     isMobileRef.current = isMobile;
@@ -96,11 +95,14 @@ export default function App() {
 
   /* =========================
      ScrollTrigger stabilize (mobile-safe)
-     ※ DOM分離なし前提：effectは1回だけ。isMobileはrefで見る。
      ========================= */
   useEffect(() => {
-    // ✅ iOSのアドレスバー伸縮による refresh 暴れを抑える
-    ScrollTrigger.config({ ignoreMobileResize: true });
+    // ✅ SPの “resize由来refresh” を切って安定化
+    ScrollTrigger.config({
+      ignoreMobileResize: true,
+      limitCallbacks: true,
+      autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+    });
 
     let cancelled = false;
     let rafId = 0;
@@ -121,15 +123,22 @@ export default function App() {
     // load（画像など）
     window.addEventListener("load", requestRefresh);
 
+    // ✅ Safari/iOSのBFCache対策（戻るでズレるやつ）
+    const onPageShow = () => requestRefresh();
+    window.addEventListener("pageshow", onPageShow);
+
     // fonts（フォントでレイアウトが変わる場合）
+    // ✅ SPではやらない（パッパッの原因になりやすい）
     const fontReady = document.fonts?.ready;
     if (fontReady?.then) {
       fontReady.then(() => {
-        if (!cancelled) requestRefresh();
+        if (cancelled) return;
+        if (isMobileRef.current) return; // ← SPはスキップ
+        requestRefresh();
       });
     }
 
-    // ✅ SPは回転のときだけ軽く refresh（必要最低限）
+    // ✅ SPは回転だけ refresh（必要最低限）
     const onOrientation = () => {
       if (!isMobileRef.current) return;
       window.setTimeout(() => {
@@ -143,9 +152,10 @@ export default function App() {
       if (rafId) cancelAnimationFrame(rafId);
 
       window.removeEventListener("load", requestRefresh);
+      window.removeEventListener("pageshow", onPageShow);
       window.removeEventListener("orientationchange", onOrientation);
 
-      // ✅ unmount時だけ全 kill（isMobile変化でkillしない）
+      // ✅ unmount時だけ全 kill
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
@@ -169,7 +179,7 @@ export default function App() {
         <Footer />
       </main>
 
-      {/* ✅ openのときだけ描画される */}
+      {/* ✅ openのときだけ描画 */}
       <CartModal />
     </CartProvider>
   );
